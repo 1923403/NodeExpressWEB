@@ -1,0 +1,125 @@
+:root {
+  --main-color: #22376f;
+  --secondary-color: #53619e;
+  --shadow: rgba(0, 0, 0, 0.2);
+}
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  hyphens: auto;
+  max-width: 100%;
+  font-weight: bold;
+}
+
+header {
+  display: inline-block;
+  background-color: var(--main-color);
+  color: white;
+  width: 100vw;
+  text-align: center;
+  position: sticky;
+  top: 0px;
+  cursor: default;
+}
+
+#ueberschrift {
+  padding: 12px 0px;
+}
+
+main {
+  margin: 20px;
+}
+
+.listenelement ul {
+  display: inline-block;
+  border: 1px solid black;
+  width: 100%;
+}
+
+.listenelement ul li {
+  list-style: none;
+  text-align: center;
+}
+
+.listenelement ul li a {
+  padding: 16px 10px;
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+}
+
+.eintragsname {
+  float: left;
+  width: 90%;
+}
+
+.eintrag-entfernen {
+  float: right;
+  border-left: 1px solid #000;
+  width: 10%;
+}
+
+@media screen and (max-width: 720px) {
+  .eintragsname {
+    width: 80%;
+  }
+  .eintrag-entfernen {
+    width: 20%;
+  }
+}
+
+.eintrag-entfernen a {
+  background-color: darkred;
+  color: white;
+}
+
+a:hover,
+#element-hinzufuegen .hinzufuegen:hover {
+  transition: 0.3s;
+  box-shadow: 0 8px 16px 0 var(--shadow);
+}
+
+#element-hinzufuegen {
+  margin-top: 20px;
+}
+
+#element-hinzufuegen .hinzufuegen {
+  display: block;
+  margin: auto;
+  padding: 12px 10px;
+  color: white;
+  background-color: darkgreen;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+}
+
+.formular {
+  transition: 0.3s;
+  outline: 0px;
+  margin: auto;
+  padding: 15px;
+  background-color: lightgray;
+  border: 1px solid black;
+  border-top: none;
+  max-width: 98%;
+  border-radius: 0px 0px 15px 15px;
+}
+
+.formular-gruppe input {
+  appearance: textfield;
+}
+
+.formular-gruppe input::-webkit-outer-spin-button,
+.formular-gruppe input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.formular {
+  display: none;
+}

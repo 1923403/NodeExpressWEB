@@ -42,6 +42,7 @@ main {
 .listenelement ul li {
   list-style: none;
   text-align: center;
+  cursor: pointer;
 }
 
 .listenelement ul li a {

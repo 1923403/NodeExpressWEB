@@ -10,10 +10,10 @@ listenelemente.forEach((element) =>
 
 function detailsAnzeigen(e) {
   let formular = e.path[3].querySelector(".formular");
-  if (formular.style.display === "block") {
-    formular.style.display = "none";
+  if (formular.style.maxHeight) {
+    formular.style.maxHeight = null;
   } else {
-    formular.style.display = "block";
+    formular.style.maxHeight = formular.scrollHeight + "px";
   }
 }
 

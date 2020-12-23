@@ -10,10 +10,13 @@ listenelemente.forEach((element) =>
 
 function detailsAnzeigen(e) {
   let formular = e.path[3].querySelector(".formular");
+  let pfeil = e.path[3].querySelector(".pfeil");
   if (formular.style.maxHeight) {
     formular.style.maxHeight = null;
+    pfeil.style.transform= "rotate(0deg)";
   } else {
     formular.style.maxHeight = formular.scrollHeight + "px";
+    pfeil.style.transform= "rotate(90deg)";
   }
 }
 

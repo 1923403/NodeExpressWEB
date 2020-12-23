@@ -59,6 +59,7 @@ main {
 
 .pfeil{
   float:left;
+  transition: 0.3s ease-out;
 }
 
 .eintragsname {

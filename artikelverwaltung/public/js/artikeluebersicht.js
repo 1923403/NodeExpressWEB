@@ -11,6 +11,7 @@ listenelemente.forEach((element) =>
 function detailsAnzeigen(e) {
   let formular = e.path[3].querySelector(".formular");
   let pfeil = e.path[3].querySelector(".pfeil");
+  e.path[3].querySelector(".elementuebersicht").classList.toggle("aktiv");
   if (formular.style.maxHeight) {
     formular.style.maxHeight = null;
     pfeil.style.transform= "rotate(0deg)";

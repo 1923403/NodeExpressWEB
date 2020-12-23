@@ -2,6 +2,7 @@ const liste = document.querySelector("#elemente");
 const listenelemente = document.querySelectorAll(".eintragsname");
 const loeschen = document.querySelectorAll(".eintrag-entfernen");
 const hinzufuegen = document.createElement("div");
+let elemtenteAnzahl = 2;
 
 // Eintragsmenue ausklappen
 listenelemente.forEach((element) =>
@@ -42,14 +43,20 @@ function elementHinzufuegen() {
 
   // ul erstellen
   const ul = document.createElement("ul");
+  ul.className = " elementuebersicht";
 
   // li - eintragsname
   const liName = document.createElement("li");
   liName.className = "eintragsname";
+  const imgPfeil = document.createElement("img");
+  imgPfeil.className = "pfeil";
+  imgPfeil.src="./images/arrow-right-24px.svg";
   const aName = document.createElement("a");
-  aName.addEventListener("click", detailsAnzeigen);
-  aName.innerText = "NAME EINFUEGEN";
+  aName.innerText = "Name "+ ++elemtenteAnzahl;
+  liName.appendChild(imgPfeil);
   liName.appendChild(aName);
+  liName.addEventListener("click", detailsAnzeigen);
+ 
 
   // li - eintrag-entfernen
   const liEntfernen = document.createElement("li");

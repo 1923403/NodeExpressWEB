@@ -33,7 +33,7 @@ function eintragEntfernen(e) {
 
 // Eintrag hinzufuegen
 document
-  .querySelector("#element-hinzufuegen")
+  .querySelector(".hinzufuegen")
   .addEventListener("click", elementHinzufuegen);
 
 function elementHinzufuegen() {

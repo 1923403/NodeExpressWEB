@@ -10,27 +10,33 @@ let listenId = 0;
 
 io.on("connection", (socket) => {
   socket.on("artikel", (artikel) => {
-    console.log("artikel angekommen: ");
-    console.log(artikel);
-    let rohdaten = fs.readFileSync(
-      path.join(__dirname, "..", "data", "listen.json")
-    );
-    parsedData = JSON.parse(artikel);
-    if (parsedData["id"] === "") {
-      // UEBERARBEITEN!!!!!!!!!!!!!!!!!
-      // parsedData["id"] = Math.floor(Math.random() * 10000);
-      parsedData["id"] = artikelId;
+    const neueArtikeldaten = JSON.parse(artikel);
+    const bestand = holeBestandsdaten();
+
+    if (neueArtikeldaten["id"] === "") {
+      neueArtikeldaten["id"] = artikelId;
+      artikelId++;
     } else {
-      console.log("suche id");
-      let artikelId2 = parsedData["id"];
-      console.log(`artikelID2: ${artikelId2}`);
-      console.log(rohdaten);
-      //rohdaten fehlerhaft...überarbeiten...
-      // rohdaten = JSON.parse(rohdaten);
-      console.log(rohdaten);
-      sucheArtikel(rohdaten, artikelId2);
+      bestand.push(neueArtikeldaten);
+      aktualisiereBestandsliste(bestand);
     }
-    console.log(parsedData["name"]);
+
+    // parsedData = JSON.parse(artikel);
+    // if (parsedData["id"] === "") {
+    // UEBERARBEITEN!!!!!!!!!!!!!!!!!
+    // parsedData["id"] = Math.floor(Math.random() * 10000);
+    //   parsedData["id"] = artikelId;
+    // } else {
+    //   console.log("suche id");
+    //   let artikelId2 = parsedData["id"];
+    //   console.log(`artikelID2: ${artikelId2}`);
+    //   console.log(rohdaten);
+    //rohdaten fehlerhaft...überarbeiten...
+    // rohdaten = JSON.parse(rohdaten);
+    // console.log(rohdaten);
+    // sucheArtikel(rohdaten, artikelId2);
+    // }
+    // console.log(parsedData["name"]);
 
     // jsonAusgeben(JSON.parse(artikel));
     // artikelliste = JSON.parse(rohdaten);
@@ -39,6 +45,18 @@ io.on("connection", (socket) => {
     // listenSpeichern(artikelliste2);
   });
 });
+
+function holeBestandsdaten() {
+  const rohdaten = fs.readFileSync(
+    path.join(__dirname, "..", "data", "listen.json")
+  );
+  return JSON.parse(rohdaten);
+}
+
+function aktualisiereBestandsliste(bestandsliste) {
+  const daten = JSON.stringify(bestandsliste);
+  fs.writeFileSync(path.join(__dirname, "..", "data", "listen.json"), daten);
+}
 
 function sucheArtikel(json, id) {
   console.log(typeof json);

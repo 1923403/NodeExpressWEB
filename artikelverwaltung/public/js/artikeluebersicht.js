@@ -12,7 +12,7 @@ listenelemente.forEach((element) =>
 
 function formularAuswerten(e) {
   const data = new FormData();
-  console.log(e.path[2]);
+  // console.log(e.path[2]);
   formularElement = e.path[2];
   data.append("id", formularElement.querySelector("#id").value);
   data.append("name", formularElement.querySelector("#name").value);
@@ -38,12 +38,12 @@ function formularAuswerten(e) {
     "verfuegbar-seit",
     formularElement.querySelector("#verfuegbar-seit").value
   );
-  data.forEach((element) => {
-    console.log(element);
-  });
+  // data.forEach((element) => {
+  //   console.log(element);
+  // });
 
   let bla = JSON.stringify(Object.fromEntries(data));
-  console.log(bla);
+  // console.log(bla);
   socket.emit("artikel", bla);
 }
 
@@ -328,5 +328,5 @@ function elementHinzufuegen() {
 
   // Uebergabe an Liste
   liste.appendChild(hinzufuegen);
-  console.log(liste);
+  // console.log(liste);
 }

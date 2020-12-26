@@ -56,17 +56,17 @@ main {
 
 .listenelement ul li a {
   text-decoration: none;
-  float:left;
+  float: left;
   min-width: 95%;
 }
 
-.pfeil{
-  float:left;
+.pfeil {
+  float: left;
   transition: 0.3s ease-out;
 }
 
 .eintragsname {
- width: 90%;
+  width: 90%;
 }
 
 .eintrag-entfernen {
@@ -90,7 +90,8 @@ main {
   color: white;
 }
 
-.aktiv, ul:hover{
+.aktiv,
+ul:hover {
   background-color: #f1f1f1;
   transition: 0.2;
 }
@@ -122,7 +123,11 @@ main {
   width: 100%;
 }
 
-.formular-gruppe{
+.speichern-button {
+  background-color: greenyellow;
+}
+
+.formular-gruppe {
   background-color: #f1f1f1;
   padding: 5px 20px;
 }

@@ -2,12 +2,50 @@ const liste = document.querySelector("#elemente");
 const listenelemente = document.querySelectorAll(".eintragsname");
 const loeschen = document.querySelectorAll(".eintrag-entfernen");
 const hinzufuegen = document.createElement("div");
-let elemtenteAnzahl = 2;
+let elemtenteAnzahl = 0;
+var socket = io();
 
 // Eintragsmenue ausklappen
 listenelemente.forEach((element) =>
   element.addEventListener("click", detailsAnzeigen)
 );
+
+function formularAuswerten(e) {
+  const data = new FormData();
+  console.log(e.path[2]);
+  formularElement = e.path[2];
+  data.append("id", formularElement.querySelector("#id").value);
+  data.append("name", formularElement.querySelector("#name").value);
+  data.append("hersteller", formularElement.querySelector("#hersteller").value);
+  data.append(
+    "einkaufspreis",
+    formularElement.querySelector("#einkaufspreis").value
+  );
+  data.append(
+    "verkaufspreis",
+    formularElement.querySelector("#verkaufspreis").value
+  );
+  data.append(
+    "beschreibung",
+    formularElement.querySelector("#beschreibung").value
+  );
+  data.append("kategorie", formularElement.querySelector("#kategorie").value);
+  data.append(
+    "verfuegbarkeit",
+    formularElement.querySelector("#verfuegbarkeit").value
+  );
+  data.append(
+    "verfuegbar-seit",
+    formularElement.querySelector("#verfuegbar-seit").value
+  );
+  data.forEach((element) => {
+    console.log(element);
+  });
+
+  let bla = JSON.stringify(Object.fromEntries(data));
+  console.log(bla);
+  socket.emit("artikel", bla);
+}
 
 function detailsAnzeigen(e) {
   let formular = e.path[3].querySelector(".formular");
@@ -15,10 +53,10 @@ function detailsAnzeigen(e) {
   e.path[3].querySelector(".elementuebersicht").classList.toggle("aktiv");
   if (formular.style.maxHeight) {
     formular.style.maxHeight = null;
-    pfeil.style.transform= "rotate(0deg)";
+    pfeil.style.transform = "rotate(0deg)";
   } else {
     formular.style.maxHeight = formular.scrollHeight + "px";
-    pfeil.style.transform= "rotate(90deg)";
+    pfeil.style.transform = "rotate(90deg)";
   }
 }
 
@@ -50,13 +88,12 @@ function elementHinzufuegen() {
   liName.className = "eintragsname";
   const imgPfeil = document.createElement("img");
   imgPfeil.className = "pfeil";
-  imgPfeil.src="./images/arrow-right-24px.svg";
+  imgPfeil.src = "./images/arrow-right-24px.svg";
   const aName = document.createElement("a");
-  aName.innerText = "Name "+ ++elemtenteAnzahl;
+  aName.innerText = "Name " + ++elemtenteAnzahl;
   liName.appendChild(imgPfeil);
   liName.appendChild(aName);
   liName.addEventListener("click", detailsAnzeigen);
- 
 
   // li - eintrag-entfernen
   const liEntfernen = document.createElement("li");
@@ -280,6 +317,14 @@ function elementHinzufuegen() {
   label.htmlFor = "verfuegbar-seit";
   label.innerText = "Verfügbar seit";
   divFormularGruppe.appendChild(label);
+
+  // Button erstellen
+  button = document.createElement("button");
+  button.type = "button";
+  button.className = "speichern-button";
+  button.innerText = "Speichern";
+  button.addEventListener("click", formularAuswerten);
+  formular.appendChild(button);
 
   // Uebergabe an Liste
   liste.appendChild(hinzufuegen);

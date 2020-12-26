@@ -10,78 +10,7 @@ header
     img#svg(src='./images/edit-24px.svg')
 main
   #elemente
-    .listenelement
-      ul.elementuebersicht
-        li.eintragsname
-          img.pfeil(src='./images/arrow-right-24px.svg')
-          a= name1
-        li.eintrag-entfernen
-          a L&ouml;schen
-      .formular
-        form(action='')
-          .formular-gruppe
-            input#id(type='number', name='id')
-            label(for='id') ID
-          .formular-gruppe
-            input#name(type='text', name='name')
-            label(for='name') Name
-          .formular-gruppe
-            input#hersteller(type='text', name='hersteller')
-            label(for='hersteller') Hersteller
-          .formular-gruppe
-            input#einkaufspreis(type='number', name='einkaufspreis')
-            label(for='einkaufspreis') Einkaufspreis
-          .formular-gruppe
-            input#verkaufspreis(type='number', name='verkaufspreis')
-            label(for='verkaufspreis') Verkaufspreis
-          .formular-gruppe
-            input#beschreibung(type='text', name='beschreibung')
-            label(for='beschreibung') Beschreibung
-          .formular-gruppe
-            input#kategorie(type='text', name='kategorie')
-            label(for='kategorie') Kategorie
-          .formular-gruppe
-            input#verfuegbarkeit(type='number', name='verfuegbarkeit')
-            label(for='verfuegbarkeit') Verf&uuml;gbarkeit
-          .formular-gruppe
-            input#verfuegbar-seit(type='date', name='verfuegbar-seit')
-            label(for='verfuegbar-seit') Verf&uuml;gbar seit
-    .listenelement
-      ul.elementuebersicht
-        li.eintragsname
-          img.pfeil(src='./images/arrow-right-24px.svg')
-          a= name2
-        li.eintrag-entfernen
-          a L&ouml;schen
-      .formular
-        form(action='')
-          .formular-gruppe
-            input#id(type='number', name='id')
-            label(for='id') ID
-          .formular-gruppe
-            input#name(type='text', name='name')
-            label(for='name') Name
-          .formular-gruppe
-            input#hersteller(type='text', name='hersteller')
-            label(for='hersteller') Hersteller
-          .formular-gruppe
-            input#einkaufspreis(type='number', name='einkaufspreis')
-            label(for='einkaufspreis') Einkaufspreis
-          .formular-gruppe
-            input#verkaufspreis(type='number', name='verkaufspreis')
-            label(for='verkaufspreis') Verkaufspreis
-          .formular-gruppe
-            input#beschreibung(type='text', name='beschreibung')
-            label(for='beschreibung') Beschreibung
-          .formular-gruppe
-            input#kategorie(type='text', name='kategorie')
-            label(for='kategorie') Kategorie
-          .formular-gruppe
-            input#verfuegbarkeit(type='number', name='verfuegbarkeit')
-            label(for='verfuegbarkeit') Verf&uuml;gbarkeit
-          .formular-gruppe
-            input#verfuegbar-seit(type='date', name='verfuegbar-seit')
-            label(for='verfuegbar-seit') Verf&uuml;gbar seit
   #element-hinzufuegen
     button.hinzufuegen Hinzuf&uuml;gen
+script(type='text/javascript', charset='UTF-8', src='/socket.io/socket.io.js')
 script(type='text/javascript', charset='UTF-8', src='./js/artikeluebersicht.js')

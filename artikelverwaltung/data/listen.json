@@ -1,8 +1,3 @@
-[
-    {
-      "listenname":"Medikamente",
-      "listenId":"0",
-      "inhalt":  
         [
             {
                 "id":"0",
@@ -27,6 +22,3 @@
                 "verfügbarSeit": "2000-13-12"
             }
         ]
-
-    }
-]

@@ -29,12 +29,6 @@ header {
   padding: 12px 0px;
 }
 
-#svg {
-  filter: invert(100%) sepia(5%) saturate(22%) hue-rotate(217deg)
-    brightness(106%) contrast(100%);
-  cursor: pointer;
-}
-
 main {
   margin: 20px;
 }

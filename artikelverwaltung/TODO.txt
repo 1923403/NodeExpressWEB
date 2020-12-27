@@ -1,0 +1,9 @@
+- Aktualisierung ohne reload
+- Spalte input mit Beschriftung vertauschen
+- Info über erfolgreiche Speicherung
+- Info über fehlende Speicherung
+- Layout ueberarbeiten
+- undefined entfernen
+- hinzufuegen oeffnet formular
+- speichern schließt formular
+- CODE UEBERARBEITEN!!!!

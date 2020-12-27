@@ -11,12 +11,12 @@ io.on("connection", (socket) => {
     const neueArtikeldaten = JSON.parse(artikel);
     const bestand = holeBestandsdaten();
     let artikelId = holeLetzteId(bestand);
-    console.log(++artikelId);
     if (neueArtikeldaten["id"] === "") {
-      neueArtikeldaten["id"] = artikelId;
+      neueArtikeldaten["id"] = ++artikelId;
       bestand.push(neueArtikeldaten);
       aktualisiereBestandsliste(bestand);
     } else {
+      artikelAendern(neueArtikeldaten, bestand);
     }
 
     // parsedData = JSON.parse(artikel);
@@ -49,6 +49,31 @@ io.on("connection", (socket) => {
     loescheArtikel(bestand, id);
   });
 });
+
+function artikelAendern(artikel, bestand){
+  for(let i = 0; i < bestand.length; i++){
+    if(bestand[i]["id"] == artikel["id"]){
+      bestand[i]["name"] = artikel["name"];
+      bestand[i]["hersteller"] = artikel["hersteller"];
+      bestand[i]["einkaufspreis"] = artikel["einkaufspreis"];
+      bestand[i]["verkaufspreis"] = artikel["verkaufspreis"];
+      //bestand[i]["beschreibung"] = artikel["beschreibung"];
+      bestand[i]["kategorie"] = artikel["kategorie"];
+      bestand[i]["stueckzahl"] = artikel["stueckzahl"];
+      //bestand[i]["verfuegbar-seit"] = artikel["verfuegbar-seit"];
+      // bestand[i].forEach(([key, value]) => {
+        //   console.log(key + " " + value)
+        // })
+        // artikel.forEach(([key, value])=>{
+          //   console.log("key"+key)
+          //bestand[i][key] = artikel[key];
+          //});
+          console.log("id gefunden...updating...")
+          break;
+        }
+      }
+            aktualisiereBestandsliste(bestand);
+}
 
 function sendeArtikelliste(socket){
   // const user = await fetchUserId(socket);

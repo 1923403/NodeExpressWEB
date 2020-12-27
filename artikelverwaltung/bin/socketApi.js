@@ -5,17 +5,14 @@ const path = require("path");
 const fs = require("fs");
 socketAPI.io = io;
 
-let artikelId = 0;
-let listenId = 0;
-
 io.on("connection", (socket) => {
   socket.on("artikel", (artikel) => {
     const neueArtikeldaten = JSON.parse(artikel);
     const bestand = holeBestandsdaten();
-
+    let artikelId = holeLetzteId(bestand);
+    console.log(++artikelId);
     if (neueArtikeldaten["id"] === "") {
       neueArtikeldaten["id"] = artikelId;
-      artikelId++;
       bestand.push(neueArtikeldaten);
       aktualisiereBestandsliste(bestand);
     } else {
@@ -44,7 +41,26 @@ io.on("connection", (socket) => {
     // artikelliste2 = JSON.stringify(artikelliste);
     // listenSpeichern(artikelliste2);
   });
+
+  socket.on("artikelLoeschen", (id) => {
+    const bestand = holeBestandsdaten();
+    loescheArtikel(bestand, id);
+  });
 });
+
+function loescheArtikel(bestand, id) {
+  for (let i = 0; i < bestand.length; i++) {
+    if (bestand[i]["id"] === id) {
+      bestand[i].delete();
+      break;
+    }
+  }
+  aktualisiereBestandsliste(bestand);
+}
+
+function holeLetzteId(bestand) {
+  return bestand[bestand.length - 1]["id"];
+}
 
 function holeBestandsdaten() {
   const rohdaten = fs.readFileSync(

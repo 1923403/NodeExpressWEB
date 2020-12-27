@@ -22,14 +22,14 @@
         "verfuegbar-seit": "2000-13-12"
     },
     {
-        "id": "3",
-        "name": "",
-        "hersteller": "",
-        "einkaufspreis": "",
-        "verkaufspreis": "",
-        "beschreibung": "",
-        "kategorie": "asd",
-        "verfuegbarkeit": "",
-        "verfuegbar-seit": ""
+        "id": 2,
+        "name": "Paracetamol",
+        "hersteller": "Stada",
+        "einkaufspreis": "0.10",
+        "verkaufspreis": "2.45",
+        "beschreibung": "gegen Schmerzen und Fieber",
+        "kategorie": "Analgetika",
+        "verfuegbarkeit": "1000",
+        "verfuegbar-seit": "2020-10-10"
     }
 ]

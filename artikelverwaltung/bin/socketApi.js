@@ -16,9 +16,9 @@ io.on("connection", (socket) => {
     if (neueArtikeldaten["id"] === "") {
       neueArtikeldaten["id"] = artikelId;
       artikelId++;
-    } else {
       bestand.push(neueArtikeldaten);
       aktualisiereBestandsliste(bestand);
+    } else {
     }
 
     // parsedData = JSON.parse(artikel);

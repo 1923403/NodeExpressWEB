@@ -6,6 +6,7 @@ const fs = require("fs");
 socketAPI.io = io;
 
 io.on("connection", (socket) => {
+  sendeArtikelliste(socket);
   socket.on("artikel", (artikel) => {
     const neueArtikeldaten = JSON.parse(artikel);
     const bestand = holeBestandsdaten();
@@ -43,15 +44,24 @@ io.on("connection", (socket) => {
   });
 
   socket.on("artikelLoeschen", (id) => {
+    console.log("artikel löschen");
     const bestand = holeBestandsdaten();
     loescheArtikel(bestand, id);
   });
 });
 
+function sendeArtikelliste(socket){
+  // const user = await fetchUserId(socket);
+  // socket.join(user);
+  // io.to(user).emit("artikelliste", holeBestandsdaten());
+  socket.emit("artikelListe", holeBestandsdaten());
+}
+
 function loescheArtikel(bestand, id) {
+  console.log("lösche"+id);
   for (let i = 0; i < bestand.length; i++) {
-    if (bestand[i]["id"] === id) {
-      bestand[i].delete();
+    if (bestand[i]["id"] == id) {
+      bestand.splice(i, 1);
       break;
     }
   }

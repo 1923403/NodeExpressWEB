@@ -1,35 +1,24 @@
 [
-    {
-        "id": "0",
-        "name": "Metamizol",
-        "hersteller": "ratiopharm",
-        "einkaufspreis": "2.50",
-        "verkaufspreis": "25.00",
-        "beschreibung": "hilft gegen Schmerzen und Fieber",
-        "kategorie": "Analgetika",
-        "verfuegbarkeit": "10",
-        "verfuegbar-seit": "1970-11-03"
-    },
-    {
-        "id": "1",
-        "name": "Succinylcholin",
-        "hersteller": "ratiopharm",
-        "einkaufspreis": "1.50",
-        "verkaufspreis": "23.43",
-        "beschreibung": "Entspannt die Muskulatur",
-        "kategorie": "Relaxans",
-        "verfuegbarkeit": "14",
-        "verfuegbar-seit": "2000-13-12"
-    },
-    {
-        "id": 2,
-        "name": "Paracetamol",
-        "hersteller": "Stada",
-        "einkaufspreis": "0.10",
-        "verkaufspreis": "2.45",
-        "beschreibung": "gegen Schmerzen und Fieber",
-        "kategorie": "Analgetika",
-        "verfuegbarkeit": "1000",
-        "verfuegbar-seit": "2020-10-10"
-    }
+  {
+    "id": "0",
+    "name": "Metamizol",
+    "hersteller": "ratiopharm",
+    "einkaufspreis": "2.50",
+    "verkaufspreis": "25.00",
+    "beschreibung": "hilft gegen Schmerzen und Fieber",
+    "kategorie": "Analgetika",
+    "verfuegbarkeit": "10",
+    "verfuegbar-seit": "1970-11-03"
+  },
+  {
+    "id": "1",
+    "name": "Succinylcholin",
+    "hersteller": "ratiopharm",
+    "einkaufspreis": "1.50",
+    "verkaufspreis": "23.43",
+    "beschreibung": "Entspannt die Muskulatur",
+    "kategorie": "Relaxans",
+    "verfuegbarkeit": "14",
+    "verfuegbar-seit": "2000-13-12"
+  }
 ]

@@ -2,8 +2,15 @@ const liste = document.querySelector("#elemente");
 const listenelemente = document.querySelectorAll(".eintragsname");
 const loeschen = document.querySelectorAll(".eintrag-entfernen");
 const hinzufuegen = document.createElement("div");
-let elemtenteAnzahl = 0;
 var socket = io();
+
+socket.on("artikelListe", (artikelListe) =>{
+  console.log("artikelliste angekommen..."+artikelListe);
+  artikelListe.forEach((element) =>{
+    console.log(element);
+    artikelHinzufuegen(element);
+  });
+});
 
 // Eintragsmenue ausklappen
 listenelemente.forEach((element) =>
@@ -66,15 +73,20 @@ loeschen.forEach((element) =>
 );
 
 function eintragEntfernen(e) {
+  let id = e.path[3].querySelector("#id").value;
+  console.log(id);
+  if(id !="")
+    socket.emit("artikelLoeschen",id);
   e.path[3].remove();
 }
 
 // Eintrag hinzufuegen
 document
   .querySelector(".hinzufuegen")
-  .addEventListener("click", elementHinzufuegen);
+  .addEventListener("click", artikelHinzufuegen);
 
-function elementHinzufuegen() {
+function artikelHinzufuegen(artikel) {
+  console.log("a"+artikel);
   // Listenelement erstellen
   const hinzufuegen = document.createElement("div");
   hinzufuegen.className = "listenelement";
@@ -90,7 +102,10 @@ function elementHinzufuegen() {
   imgPfeil.className = "pfeil";
   imgPfeil.src = "./images/arrow-right-24px.svg";
   const aName = document.createElement("a");
-  aName.innerText = "Name " + ++elemtenteAnzahl;
+  if(artikel != null)
+    aName.innerText=artikel["name"];
+  else
+    aName.innerText = "Neues Medikament";
   liName.appendChild(imgPfeil);
   liName.appendChild(aName);
   liName.addEventListener("click", detailsAnzeigen);
@@ -134,7 +149,12 @@ function elementHinzufuegen() {
   input.type = "number";
   input.id = "id";
   input.name = "id";
+  input.readOnly = true;
+  input.disabled = "disabled";
   divFormularGruppe.appendChild(input);
+  if(artikel != null)
+    input.value=artikel["id"];
+  
 
   // Label erstellen
   let label = document.createElement("label");
@@ -157,6 +177,8 @@ function elementHinzufuegen() {
   input.id = "name";
   input.name = "name";
   divFormularGruppe.appendChild(input);
+  if(artikel != null)
+    input.value=artikel["name"];
 
   // Label erstellen
   label = document.createElement("label");
@@ -179,6 +201,8 @@ function elementHinzufuegen() {
   input.id = "hersteller";
   input.name = "hersteller";
   divFormularGruppe.appendChild(input);
+  if(artikel != null)
+    input.value=artikel["hersteller"];
 
   // Label erstellen
   label = document.createElement("label");
@@ -201,6 +225,8 @@ function elementHinzufuegen() {
   input.id = "einkaufspreis";
   input.name = "einkaufspreis";
   divFormularGruppe.appendChild(input);
+  if(artikel != null)
+    input.value=artikel["einkaufspreis"];
 
   // Label erstellen
   label = document.createElement("label");
@@ -223,6 +249,8 @@ function elementHinzufuegen() {
   input.id = "verkaufspreis";
   input.name = "verkaufspreis";
   divFormularGruppe.appendChild(input);
+  if(artikel != null)
+    input.value=artikel["verkaufspreis"];
 
   // Label erstellen
   label = document.createElement("label");
@@ -245,6 +273,8 @@ function elementHinzufuegen() {
   input.id = "beschreibung";
   input.name = "beschreibung";
   divFormularGruppe.appendChild(input);
+  if(artikel != null)
+    input.value=artikel["beschreibung"];
 
   // Label erstellen
   label = document.createElement("label");
@@ -267,6 +297,8 @@ function elementHinzufuegen() {
   input.id = "kategorie";
   input.name = "kategorie";
   divFormularGruppe.appendChild(input);
+  if(artikel != null)
+    input.value=artikel["kategorie"];
 
   // Label erstellen
   label = document.createElement("label");
@@ -289,6 +321,8 @@ function elementHinzufuegen() {
   input.id = "verfuegbarkeit";
   input.name = "verfuegbarkeit";
   divFormularGruppe.appendChild(input);
+  if(artikel != null)
+    input.value=artikel["verfuegbarkeit"];
 
   // Label erstellen
   label = document.createElement("label");
@@ -311,6 +345,8 @@ function elementHinzufuegen() {
   input.id = "verfuegbar-seit";
   input.name = "verfuegbar-seit";
   divFormularGruppe.appendChild(input);
+  if(artikel != null)
+    input.value=artikel["verfuegbar-seit"];
 
   // Label erstellen
   label = document.createElement("label");
@@ -325,6 +361,10 @@ function elementHinzufuegen() {
   button.innerText = "Speichern";
   button.addEventListener("click", formularAuswerten);
   formular.appendChild(button);
+
+  //  if(artikel != null){
+  //    id.innerText=artikel["id"];
+  //  }
 
   // Uebergabe an Liste
   liste.appendChild(hinzufuegen);

@@ -1,1 +1,30 @@
-[{"listenname":"Medikamente","listenId":"0","inhalt":[{"id":"0","name":"Metamizol","hersteller":"ratiopharm","einkaufspreis":"2.50","verkaufspreis":"25.00","beschreibung":"hilft gegen Schmerzen und Fieber","kategorie":"Analgetika","verfügbarkeit":"10","verfügbarSeit":"1970-11-03"},{"id":"1","name":"Succinylcholin","hersteller":"ratiopharm","einkaufspreis":"1.50","verkaufspreis":"23.43","beschreibung":"Entspannt die Muskulatur","kategorie":"Relaxans","verfügbarkeit":"14","verfügbarSeit":"2000-13-12"}]}]
+[
+  {
+    "listenname": "Medikamente",
+    "listenId": "0",
+    "inhalt": [
+      {
+        "id": "0",
+        "name": "Metamizol",
+        "hersteller": "ratiopharm",
+        "einkaufspreis": "2.50",
+        "verkaufspreis": "25.00",
+        "beschreibung": "hilft gegen Schmerzen und Fieber",
+        "kategorie": "Analgetika",
+        "verfügbarkeit": "10",
+        "verfügbarSeit": "1970-11-03"
+      },
+      {
+        "id": "1",
+        "name": "Succinylcholin",
+        "hersteller": "ratiopharm",
+        "einkaufspreis": "1.50",
+        "verkaufspreis": "23.43",
+        "beschreibung": "Entspannt die Muskulatur",
+        "kategorie": "Relaxans",
+        "verfügbarkeit": "14",
+        "verfügbarSeit": "2000-13-12"
+      }
+    ]
+  }
+]

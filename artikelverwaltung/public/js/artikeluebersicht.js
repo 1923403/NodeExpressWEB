@@ -9,7 +9,7 @@ socket.on("artikelListe", (artikelListe) => {
     if(istSchonVerfuegbar(artikel)){
       aenderungenEinfuegen(artikel)
     } else {
-      console.log("hinzufuegen");
+      // console.log("hinzufuegen");
       artikelHinzufuegen(artikel);
     }
   });
@@ -31,11 +31,11 @@ function istSchonVerfuegbar(artikel){
 
 function aenderungenEinfuegen(artikel){
   let kinder = document.querySelectorAll(".listenelement")
-  console.log(kinder);
+  // console.log(kinder);
   for(let i=0; i<kinder.length; i++){
-    console.log(kinder[i].querySelector("#id").value);
+    // console.log(kinder[i].querySelector("#id").value);
     if(kinder[i].querySelector("#id").value == artikel["id"]){
-      console.log("ueberschreiben");
+      // console.log("ueberschreiben");
       kinder[i].querySelector("#name").value = artikel["name"];
       kinder[i].querySelector("#hersteller").value = artikel["hersteller"];
       kinder[i].querySelector("#einkaufspreis").value = artikel["einkaufspreis"];
@@ -49,9 +49,9 @@ function aenderungenEinfuegen(artikel){
 function erfolgsmeldungAnzeigen() {
   const div = document.createElement("div")
   div.className = "erfolgsmeldung"
-  div.appendChild(document.createTextNode("synchronisiere..."))
-  const main = document.querySelector("main");
-  main.insertBefore(div,liste);
+  div.appendChild(document.createTextNode("synchronisiere..."));
+  const infoContainer = document.querySelector(".info-container");
+  infoContainer.appendChild(div);
 
   setTimeout(function () {
     document.querySelector('.erfolgsmeldung').remove();
@@ -84,8 +84,9 @@ function formularAuswerten(e) {
   );
   let neuerArtikel = JSON.stringify(Object.fromEntries(data));
   socket.emit("artikel", neuerArtikel);
-  ansichtSchliessen(e.path[3].querySelector(".formular"),e.path[3].querySelector(".pfeil"));
-  e.path[3].querySelector(".elementuebersicht").classList.toggle("aktiv");
+  console.log(e.path[3]);
+  ansichtSchliessen(e.path[3],e.path[4].querySelector(".pfeil"));
+  e.path[4].querySelector(".elementuebersicht").classList.toggle("aktiv");
 }
 
 function detailsAnzeigen(e) {
@@ -124,7 +125,14 @@ function eintragEntfernen(e) {
 // Eintrag hinzufuegen
 document
   .querySelector(".hinzufuegen")
-  .addEventListener("click", artikelHinzufuegen);
+  .addEventListener("click", neuerArtikel);
+
+function neuerArtikel(){
+  artikelHinzufuegen();
+  console.log(liste.lastChild.querySelector(".pfeil"));
+  ansichtOeffnen(liste.lastChild.querySelector(".formular"),liste.lastChild.querySelector(".pfeil"));
+  liste.lastChild.querySelector(".elementuebersicht").classList.toggle("aktiv");
+}
 
 function artikelHinzufuegen(artikel) {
   // Listenelement erstellen
@@ -354,7 +362,7 @@ function artikelHinzufuegen(artikel) {
   button.className = "speichern-button";
   button.innerText = "Speichern";
   button.addEventListener("click", formularAuswerten);
-  formular.appendChild(button);
+  divFormularGruppe.appendChild(button);
 
 
   // Uebergabe an Liste

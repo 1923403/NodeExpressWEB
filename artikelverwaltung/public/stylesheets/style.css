@@ -33,6 +33,20 @@ main {
   margin: 20px;
 }
 
+.info-container {
+  height: 30px;
+  margin: auto;
+  text-align: center;
+}
+
+.info-container .erfolgsmeldung {
+  border: 1px solid #b1b1b1;
+  color: #b1b1b1;
+  display: inline-block;
+  padding: 5px;
+  border-radius: 10px;
+}
+
 .listenelement ul {
   display: inline-block;
   border-bottom: 1px solid black;
@@ -65,10 +79,12 @@ main {
 
 .eintrag-entfernen {
   background-color: darkred;
+  text-align: center;
   float: right;
-  width: 10%;
+  outline: none;
+  /* width: 10%; */
   border-radius: 10px;
-  padding: 0px 5px;
+  padding: 5px 10px;
 }
 
 @media screen and (max-width: 720px) {
@@ -89,7 +105,8 @@ ul:hover {
   background-color: #f1f1f1;
   transition: 0.2;
 }
-#element-hinzufuegen .hinzufuegen:hover {
+.speichern-button:hover,
+.hinzufuegen:hover {
   transition: 0.2;
   box-shadow: 0 8px 16px 0 var(--shadow);
 }
@@ -98,7 +115,8 @@ ul:hover {
   margin-top: 20px;
 }
 
-#element-hinzufuegen .hinzufuegen {
+.speichern-button,
+.hinzufuegen {
   display: block;
   margin: auto;
   padding: 12px 10px;
@@ -117,9 +135,10 @@ ul:hover {
   width: 100%;
 }
 
-.speichern-button {
+/* .speichern-button {
+  display: block;
   background-color: greenyellow;
-}
+} */
 
 .formular-gruppe {
   background-color: #f1f1f1;

@@ -133,7 +133,7 @@ loeschen.forEach((element) =>
 
 function eintragEntfernen(e) {
   console.log("CLICK");
-  console.log(e.target);
+  console.log(e.target.parentNode.parentNode.parentNode.querySelector("#id"));
   let id = e.path[3].querySelector("#id").value;
   if (id != "") socket.emit("artikelLoeschen", id);
   e.path[3].remove();

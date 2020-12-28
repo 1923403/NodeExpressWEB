@@ -21,7 +21,7 @@ socket.on("artikelLoeschen", (id) => {
   if (istSchonVerfuegbar(id)) {
     let kinder = document.querySelectorAll(".listenelement");
     for (let i = 0; i < kinder.length; i++) {
-      console.log(kinder.querySelector("#id").value);
+      console.log(kinder[i].querySelector("#id").value);
       if (kinder[i].querySelector("#id").value == id) {
         console.log("removing...");
         kinder[i].remove();

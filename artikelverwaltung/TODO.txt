@@ -1,8 +1,5 @@
 - Spalte input mit Beschriftung vertauschen
-- Info über erfolgreiche Speicherung
 - Layout ueberarbeiten
-- undefined entfernen
-- hinzufuegen oeffnet formular
 - CODE UEBERARBEITEN!!!!
 - FEHLER: hinzufuegen hängt neues element an und verändert akutelles nicht (ID), route für änderungen hinzufuegen
 
@@ -11,3 +8,4 @@ Optional:
 - Sortieren
 - Info über fehlende Speicherung
 - ueberpruefen ob bei Speicherung sync ueberhaupt notwendig (wurde etwas geandert?)
+- animierte Synchronisation

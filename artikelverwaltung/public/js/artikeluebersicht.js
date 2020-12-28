@@ -77,26 +77,15 @@ function formularAuswerten(e) {
     "verkaufspreis",
     formularElement.querySelector("#verkaufspreis").value
   );
-  // data.append(
-  //   "beschreibung",
-  //   formularElement.querySelector("#beschreibung").value
-  // );
   data.append("kategorie", formularElement.querySelector("#kategorie").value);
   data.append(
     "stueckzahl",
     formularElement.querySelector("#stueckzahl").value
   );
-  // data.append(
-  //   "verfuegbar-seit",
-  //   formularElement.querySelector("#verfuegbar-seit").value
-  // );
-  // data.forEach((element) => {
-  //   console.log(element);
-  // });
-
-  let bla = JSON.stringify(Object.fromEntries(data));
-  // console.log(bla);
-  socket.emit("artikel", bla);
+  let neuerArtikel = JSON.stringify(Object.fromEntries(data));
+  socket.emit("artikel", neuerArtikel);
+  ansichtSchliessen(e.path[3].querySelector(".formular"),e.path[3].querySelector(".pfeil"));
+  e.path[3].querySelector(".elementuebersicht").classList.toggle("aktiv");
 }
 
 function detailsAnzeigen(e) {
@@ -104,12 +93,20 @@ function detailsAnzeigen(e) {
   let pfeil = e.path[3].querySelector(".pfeil");
   e.path[3].querySelector(".elementuebersicht").classList.toggle("aktiv");
   if (formular.style.maxHeight) {
-    formular.style.maxHeight = null;
-    pfeil.style.transform = "rotate(0deg)";
+    ansichtSchliessen(formular, pfeil);
   } else {
-    formular.style.maxHeight = formular.scrollHeight + "px";
-    pfeil.style.transform = "rotate(90deg)";
+    ansichtOeffnen(formular, pfeil);
   }
+}
+
+function ansichtOeffnen(formular, pfeil){
+  formular.style.maxHeight = formular.scrollHeight + "px";
+  pfeil.style.transform = "rotate(90deg)";
+}
+
+function ansichtSchliessen(formular, pfeil){
+  formular.style.maxHeight = null;
+  pfeil.style.transform = "rotate(0deg)";
 }
 
 // Eintrag entfernen

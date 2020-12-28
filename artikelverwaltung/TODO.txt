@@ -3,7 +3,6 @@
 - Layout ueberarbeiten
 - undefined entfernen
 - hinzufuegen oeffnet formular
-- speichern schließt formular
 - CODE UEBERARBEITEN!!!!
 
 Optional:

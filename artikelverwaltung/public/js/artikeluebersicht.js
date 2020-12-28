@@ -1,23 +1,52 @@
 const liste = document.querySelector("#elemente");
-const listenelemente = document.querySelectorAll(".eintragsname");
+const listenelemente = document.querySelectorAll(".listenelement");
 const loeschen = document.querySelectorAll(".eintrag-entfernen");
 const hinzufuegen = document.createElement("div");
 var socket = io();
 
 socket.on("artikelListe", (artikelListe) => {
-  console.log("artikelliste angekommen..." + artikelListe);
-  while (liste.firstChild) {
-    liste.firstChild.remove();
-  }
-  artikelListe.forEach((element) => {
-    console.log(element);
-      artikelHinzufuegen(element);
+  artikelListe.forEach((artikel) => {
+    if(istSchonVerfuegbar(artikel)){
+      aenderungenEinfuegen(artikel)
+    } else {
+      console.log("hinzufuegen");
+      artikelHinzufuegen(artikel);
+    }
   });
   erfolgsmeldungAnzeigen();
 });
 
+function istSchonVerfuegbar(artikel){
+  let listenIDs = liste.querySelectorAll("#id");
+  let istVorhanden = false;
+
+  listenIDs.forEach(id => {
+    if(id.value == artikel["id"]){
+      istVorhanden = true;
+    }
+  });
+  return istVorhanden;
+}
+
+
+function aenderungenEinfuegen(artikel){
+  let kinder = document.querySelectorAll(".listenelement")
+  console.log(kinder);
+  for(let i=0; i<kinder.length; i++){
+    console.log(kinder[i].querySelector("#id").value);
+    if(kinder[i].querySelector("#id").value == artikel["id"]){
+      console.log("ueberschreiben");
+      kinder[i].querySelector("#name").value = artikel["name"];
+      kinder[i].querySelector("#hersteller").value = artikel["hersteller"];
+      kinder[i].querySelector("#einkaufspreis").value = artikel["einkaufspreis"];
+      kinder[i].querySelector("#verkaufspreis").value = artikel["verkaufspreis"];
+      kinder[i].querySelector("#kategorie").value = artikel["kategorie"];
+      kinder[i].querySelector("#stueckzahl").value = artikel["stueckzahl"];
+    }
+  }
+}
+
 function erfolgsmeldungAnzeigen() {
-  console.log("HALLO")
   const div = document.createElement("div")
   div.className = "erfolgsmeldung"
   div.appendChild(document.createTextNode("synchronisiere..."))
@@ -29,26 +58,6 @@ function erfolgsmeldungAnzeigen() {
   }, 2000);
 }
 
-// showAlert(message, className) {
-//   // Create div
-//   const div = document.createElement('div');
-//   // Add classes
-//   div.className = `alert ${className}`;
-//   // Add text
-//   div.appendChild(document.createTextNode(message));
-//   // Get parent
-//   const container = document.querySelector('.container');
-//   // Get form
-//   const form = document.querySelector('#book-form');
-//   // Insert alert
-//   container.insertBefore(div, form);
-
-//   // Timeout after 3 sec
-//   setTimeout(function(){
-//     document.querySelector('.alert').remove();
-//   }, 3000);
-// }
-
 // Eintragsmenue ausklappen
 listenelemente.forEach((element) =>
   element.addEventListener("click", detailsAnzeigen)
@@ -56,7 +65,6 @@ listenelemente.forEach((element) =>
 
 function formularAuswerten(e) {
   const data = new FormData();
-  // console.log(e.path[2]);
   formularElement = e.path[2];
   data.append("id", formularElement.querySelector("#id").value);
   data.append("name", formularElement.querySelector("#name").value);
@@ -111,7 +119,6 @@ loeschen.forEach((element) =>
 
 function eintragEntfernen(e) {
   let id = e.path[3].querySelector("#id").value;
-  console.log(id);
   if (id != "")
     socket.emit("artikelLoeschen", id);
   e.path[3].remove();
@@ -123,7 +130,6 @@ document
   .addEventListener("click", artikelHinzufuegen);
 
 function artikelHinzufuegen(artikel) {
-  console.log("a" + artikel);
   // Listenelement erstellen
   const hinzufuegen = document.createElement("div");
   hinzufuegen.className = "listenelement";
@@ -295,29 +301,6 @@ function artikelHinzufuegen(artikel) {
   label.innerText = "Verkaufspreis";
   divFormularGruppe.appendChild(label);
 
-  // /*
-  //   Formular-Gruppe 6 - Anfang
-  // */
-
-  // // Container erstellen
-  // divFormularGruppe = document.createElement("div");
-  // divFormularGruppe.className = "formular-gruppe";
-  // formular.appendChild(divFormularGruppe);
-
-  // // Input erstellen
-  // input = document.createElement("input");
-  // input.type = "text";
-  // input.id = "beschreibung";
-  // input.name = "beschreibung";
-  // divFormularGruppe.appendChild(input);
-  // if(artikel != null)
-  //   input.value=artikel["beschreibung"];
-
-  // // Label erstellen
-  // label = document.createElement("label");
-  // label.htmlFor = "beschreibung";
-  // label.innerText = "Beschreibung";
-  // divFormularGruppe.appendChild(label);
 
   /*
     Formular-Gruppe 7 - Anfang
@@ -367,29 +350,6 @@ function artikelHinzufuegen(artikel) {
   label.innerText = "Stückzahl";
   divFormularGruppe.appendChild(label);
 
-  /*
-    Formular-Gruppe 9 - Anfang
-  */
-
-  // // Container erstellen
-  // divFormularGruppe = document.createElement("div");
-  // divFormularGruppe.className = "formular-gruppe";
-  // formular.appendChild(divFormularGruppe);
-
-  // // Input erstellen
-  // input = document.createElement("input");
-  // input.type = "date";
-  // input.id = "verfuegbar-seit";
-  // input.name = "verfuegbar-seit";
-  // divFormularGruppe.appendChild(input);
-  // if(artikel != null)
-  //   input.value=artikel["verfuegbar-seit"];
-
-  // // Label erstellen
-  // label = document.createElement("label");
-  // label.htmlFor = "verfuegbar-seit";
-  // label.innerText = "Verfügbar seit";
-  // divFormularGruppe.appendChild(label);
 
   // Button erstellen
   button = document.createElement("button");
@@ -399,9 +359,6 @@ function artikelHinzufuegen(artikel) {
   button.addEventListener("click", formularAuswerten);
   formular.appendChild(button);
 
-  //  if(artikel != null){
-  //    id.innerText=artikel["id"];
-  //  }
 
   // Uebergabe an Liste
   liste.appendChild(hinzufuegen);

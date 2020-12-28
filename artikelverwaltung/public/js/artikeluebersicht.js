@@ -62,15 +62,38 @@ function aenderungenEinfuegen(artikel) {
 }
 
 function erfolgsmeldungAnzeigen() {
-  const div = document.createElement("div");
-  div.className = "erfolgsmeldung";
-  div.appendChild(document.createTextNode("synchronisiere..."));
-  const infoContainer = document.querySelector(".info-container");
-  infoContainer.appendChild(div);
+  const erfolgsmeldung = document.querySelector(".erfolgsmeldung");
+  const nachricht = erfolgsmeldung.querySelector(".nachricht");
+  // erfolgsmeldung.appendChild(document.createTextNode("synchronisiere"));
+  erfolgsmeldung.style.visibility = "visible";
 
-  setTimeout(function () {
-    document.querySelector(".erfolgsmeldung").remove();
-  }, 2000);
+  nachricht.innerText = "synchronisiere";
+  for (let i = 1; i < 7; i++) {
+    setTimeout(() => {
+      nachricht.innerText += ".";
+    }, i * 200);
+  }
+  setTimeout(() => {
+    erfolgsmeldung.style.visibility = "hidden";
+  }, 750);
+
+  // setTimeout(() => {
+  //   nachricht.innerText = "synchronisiere";
+  // }, 300);
+  // setTimeout(() => {
+  //   nachricht.innerText += ".";
+  // }, 600);
+  // setTimeout(() => {
+  //   nachricht.innerText += ".";
+  // }, 900);
+  // setTimeout(() => {
+  //   nachricht.innerText += ".";
+  // }, 1200);
+  // erfolgsmeldung.style.visibility = "hidden";
+
+  // setTimeout(function () {
+  //   erfolgsmeldung.style.visibility = "hidden";
+  // }, 2000);
 }
 
 // Eintragsmenue ausklappen
@@ -133,8 +156,12 @@ loeschen.forEach((element) =>
 
 function eintragEntfernen(e) {
   console.log("CLICK");
+  // CODE FUER FIREFOX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   console.log(e.target.parentNode.parentNode.parentNode.querySelector("#id"));
-  let id = e.path[3].querySelector("#id").value;
+  // CODE FUER FIREFOX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // let id = e.path[3].querySelector("#id").value;
+  console.log(e);
+  let id = e.target.parentNode.parentNode.parentNode.querySelector("#id").value;
   if (id != "") socket.emit("artikelLoeschen", id);
   e.path[3].remove();
 }

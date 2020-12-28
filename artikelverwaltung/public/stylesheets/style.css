@@ -40,11 +40,13 @@ main {
 }
 
 .info-container .erfolgsmeldung {
+  transition: 1s;
   border: 1px solid #b1b1b1;
   color: #b1b1b1;
   display: inline-block;
   padding: 5px;
   border-radius: 10px;
+  visibility: hidden;
 }
 
 .listenelement ul {

@@ -1,11 +1,12 @@
+- code für Firefox ausführbar machen!!!! siehe eintragEntfernen!! bessere Moeglichkeit???
 - Spalte input mit Beschriftung vertauschen
 - Layout ueberarbeiten
 - CODE UEBERARBEITEN!!!!
-- FEHLER: hinzufuegen hängt neues element an und verändert akutelles nicht (ID), route für änderungen hinzufuegen
+- FEHLER: hinzufuegen haengt neues element an und verändert akutelles nicht (ID), route für aenderungen hinzufuegen
+- NAME aktualisieren bei Veraenderung
 
 Optional:
 - ID vergabe auf Server ueberarbeiten?
 - Sortieren
 - Info über fehlende Speicherung
 - ueberpruefen ob bei Speicherung sync ueberhaupt notwendig (wurde etwas geandert?)
-- animierte Synchronisation

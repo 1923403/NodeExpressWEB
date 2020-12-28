@@ -6,94 +6,85 @@ var socket = io();
 
 socket.on("artikelListe", (artikelListe) => {
   artikelListe.forEach((artikel) => {
-    if (istSchonVerfuegbar(artikel["id"])) {
+    if (istVorhanden(artikel["id"])) {
       aenderungenEinfuegen(artikel);
     } else {
-      // console.log("hinzufuegen");
       artikelHinzufuegen(artikel);
     }
   });
-  erfolgsmeldungAnzeigen();
+
+  meldungAnzeigen();
 });
 
 socket.on("artikelLoeschen", (id) => {
-  console.log("loesche " + id);
-  if (istSchonVerfuegbar(id)) {
-    let kinder = document.querySelectorAll(".listenelement");
-    for (let i = 0; i < kinder.length; i++) {
-      console.log(kinder[i].querySelector("#id").value);
-      if (kinder[i].querySelector("#id").value == id) {
-        console.log("removing...");
-        kinder[i].remove();
+  if (istVorhanden(id)) {
+    const listenelemente = document.querySelectorAll(".listenelement");
+
+    // ueberfluessig, wenn e.path[3].remove in Eintrag entfernen behalten wird!
+    for (let i = 0; i < listenelemente.length; i++) {
+      if (listenelemente[i].querySelector("#id").value == id) {
+        console.log("LOESCHEN");
+        listenelemente[i].remove();
       }
     }
   }
 });
 
-function istSchonVerfuegbar(id) {
-  let listenIDs = liste.querySelectorAll("#id");
+function istVorhanden(id) {
+  const idNummern = liste.querySelectorAll("#id");
   let istVorhanden = false;
 
-  listenIDs.forEach((elementId) => {
-    if (elementId.value == id) {
+  idNummern.forEach((idNummer) => {
+    if (idNummer.value == id) {
       istVorhanden = true;
     }
   });
+
   return istVorhanden;
 }
 
 function aenderungenEinfuegen(artikel) {
-  let kinder = document.querySelectorAll(".listenelement");
-  // console.log(kinder);
-  for (let i = 0; i < kinder.length; i++) {
-    // console.log(kinder[i].querySelector("#id").value);
-    if (kinder[i].querySelector("#id").value == artikel["id"]) {
-      // console.log("ueberschreiben");
-      kinder[i].querySelector("#name").value = artikel["name"];
-      kinder[i].querySelector("#hersteller").value = artikel["hersteller"];
-      kinder[i].querySelector("#einkaufspreis").value =
-        artikel["einkaufspreis"];
-      kinder[i].querySelector("#verkaufspreis").value =
-        artikel["verkaufspreis"];
-      kinder[i].querySelector("#kategorie").value = artikel["kategorie"];
-      kinder[i].querySelector("#stueckzahl").value = artikel["stueckzahl"];
+  const listenelemente = document.querySelectorAll(".listenelement");
+  const suchbegriffe = [
+    "name",
+    "hersteller",
+    "einkaufspreis",
+    "verkaufspreis",
+    "kategorie",
+    "stueckzahl",
+  ];
+
+  for (let i = 0; i < listenelemente.length; i++) {
+    if (listenelemente[i].querySelector("#id").value == artikel["id"]) {
+      suchbegriffe.forEach((element) => {
+        listenelemente[i].querySelector(`#${element}`).value =
+          artikel[`${element}`];
+        // PRODUZIERT FEHLER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // if (element === "name") {
+        //   listenelemente[i].querySelector(".eintragsname").innerText =
+        //     artikel[`${element}`];
+        // }
+      });
     }
   }
 }
 
-function erfolgsmeldungAnzeigen() {
-  const erfolgsmeldung = document.querySelector(".erfolgsmeldung");
-  const nachricht = erfolgsmeldung.querySelector(".nachricht");
-  // erfolgsmeldung.appendChild(document.createTextNode("synchronisiere"));
-  erfolgsmeldung.style.visibility = "visible";
+function meldungAnzeigen() {
+  const meldung = document.querySelector(".meldung");
+  meldung.style.visibility = "visible";
 
+  const nachricht = meldung.querySelector(".nachricht");
   nachricht.innerText = "synchronisiere";
+
   for (let i = 1; i < 7; i++) {
     setTimeout(() => {
       nachricht.innerText += ".";
     }, i * 200);
   }
+
   setTimeout(() => {
-    erfolgsmeldung.style.visibility = "hidden";
+    meldung.style.visibility = "hidden";
   }, 750);
-
-  // setTimeout(() => {
-  //   nachricht.innerText = "synchronisiere";
-  // }, 300);
-  // setTimeout(() => {
-  //   nachricht.innerText += ".";
-  // }, 600);
-  // setTimeout(() => {
-  //   nachricht.innerText += ".";
-  // }, 900);
-  // setTimeout(() => {
-  //   nachricht.innerText += ".";
-  // }, 1200);
-  // erfolgsmeldung.style.visibility = "hidden";
-
-  // setTimeout(function () {
-  //   erfolgsmeldung.style.visibility = "hidden";
-  // }, 2000);
 }
 
 // Eintragsmenue ausklappen
@@ -103,48 +94,56 @@ listenelemente.forEach((element) =>
 
 function formularAuswerten(e) {
   const data = new FormData();
-  formularElement = e.path[2];
-  data.append("id", formularElement.querySelector("#id").value);
-  data.append("name", formularElement.querySelector("#name").value);
-  data.append("hersteller", formularElement.querySelector("#hersteller").value);
-  data.append(
+  // FIREFOX!!!!!!!!!!!!!!!
+  const formularElement = e.path[2];
+  const suchbegriffe = [
+    "id",
+    "name",
+    "hersteller",
     "einkaufspreis",
-    formularElement.querySelector("#einkaufspreis").value
-  );
-  data.append(
     "verkaufspreis",
-    formularElement.querySelector("#verkaufspreis").value
-  );
-  data.append("kategorie", formularElement.querySelector("#kategorie").value);
-  data.append("stueckzahl", formularElement.querySelector("#stueckzahl").value);
-  console.log(data.get("id"));
+    "kategorie",
+    "stueckzahl",
+  ];
+
+  suchbegriffe.forEach((element) => {
+    data.append(
+      `${element}`,
+      formularElement.querySelector(`#${element}`).value
+    );
+  });
+
   if (data.get("id") === "") {
-    console.log(formularElement.parentNode.parentNode);
     formularElement.parentNode.parentNode.remove();
   }
-  let neuerArtikel = JSON.stringify(Object.fromEntries(data));
+
+  const neuerArtikel = JSON.stringify(Object.fromEntries(data));
   socket.emit("artikel", neuerArtikel);
-  ansichtSchliessen(e.path[3], e.path[4].querySelector(".pfeil"));
+
+  // FIREFOX!!!!!!!!!!!!!!!!!!!
+  menueZuklappen(e.path[3], e.path[4].querySelector(".pfeil"));
   e.path[4].querySelector(".elementuebersicht").classList.toggle("aktiv");
 }
 
 function detailsAnzeigen(e) {
+  // FIREFOX!!!!!!!!!!!!
   let formular = e.path[3].querySelector(".formular");
   let pfeil = e.path[3].querySelector(".pfeil");
   e.path[3].querySelector(".elementuebersicht").classList.toggle("aktiv");
+
   if (formular.style.maxHeight) {
-    ansichtSchliessen(formular, pfeil);
+    menueZuklappen(formular, pfeil);
   } else {
-    ansichtOeffnen(formular, pfeil);
+    menueAufklappen(formular, pfeil);
   }
 }
 
-function ansichtOeffnen(formular, pfeil) {
+function menueAufklappen(formular, pfeil) {
   formular.style.maxHeight = formular.scrollHeight + "px";
   pfeil.style.transform = "rotate(90deg)";
 }
 
-function ansichtSchliessen(formular, pfeil) {
+function menueZuklappen(formular, pfeil) {
   formular.style.maxHeight = null;
   pfeil.style.transform = "rotate(0deg)";
 }
@@ -155,14 +154,12 @@ loeschen.forEach((element) =>
 );
 
 function eintragEntfernen(e) {
-  console.log("CLICK");
-  // CODE FUER FIREFOX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  console.log(e.target.parentNode.parentNode.parentNode.querySelector("#id"));
-  // CODE FUER FIREFOX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // let id = e.path[3].querySelector("#id").value;
-  console.log(e);
-  let id = e.target.parentNode.parentNode.parentNode.querySelector("#id").value;
+  // CODE FUER FIREFOX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  const id = e.target.parentNode.parentNode.parentNode.querySelector("#id")
+    .value;
   if (id != "") socket.emit("artikelLoeschen", id);
+  // FIREFOX!!!!!!!!!
+  // wenn Eintrag entfernt wird, können ungespeicherte Listen nicht geloescht werden!
   e.path[3].remove();
 }
 
@@ -171,11 +168,12 @@ document.querySelector(".hinzufuegen").addEventListener("click", neuerArtikel);
 
 function neuerArtikel() {
   artikelHinzufuegen();
-  console.log(liste.lastChild.querySelector(".pfeil"));
-  ansichtOeffnen(
+
+  menueAufklappen(
     liste.lastChild.querySelector(".formular"),
     liste.lastChild.querySelector(".pfeil")
   );
+
   liste.lastChild.querySelector(".elementuebersicht").classList.toggle("aktiv");
 }
 

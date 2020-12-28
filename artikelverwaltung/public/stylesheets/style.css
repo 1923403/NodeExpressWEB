@@ -39,7 +39,7 @@ main {
   text-align: center;
 }
 
-.info-container .erfolgsmeldung {
+.info-container .meldung {
   transition: 1s;
   border: 1px solid #b1b1b1;
   color: #b1b1b1;

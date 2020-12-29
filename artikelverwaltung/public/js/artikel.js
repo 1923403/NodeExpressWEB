@@ -76,20 +76,21 @@ class Artikel {
       "stueckzahl",
     ];
 
-    formulargruppen.forEach((gruppe) => {
+    formulargruppen.forEach((gruppe) => { //gruppe--> gruppenelement?
       const formulargruppenContainer = this.erstelleElement(
         "div",
         "formular-gruppe"
       );
       formular.appendChild(formulargruppenContainer);
-
+      
+      const label = this.erstelleLabel(gruppe);
+      formulargruppenContainer.appendChild(label);
+      
       const input = this.erstelleInput(gruppe);
       formulargruppenContainer.appendChild(input);
 
       // if (artikel != null) input.value = artikel["id"];
 
-      const label = this.erstelleLabel(gruppe);
-      formulargruppenContainer.appendChild(label);
     });
 
     const button = this.erstelleButton();

@@ -147,6 +147,11 @@ ul:hover {
   padding: 5px 20px;
 }
 
+.formular-gruppe label {
+  display: inline-block;
+  width: 150px;
+}
+
 .formular-gruppe input {
   appearance: textfield;
 }

@@ -114,7 +114,7 @@ function formularAuswerten(e) {
   });
 
   if (data.get("id") === "") {
-    formularElement.parentNode.parentNode.remove();
+    formularElement.parentNode.remove();
   }
 
   const neuerArtikel = JSON.stringify(Object.fromEntries(data));

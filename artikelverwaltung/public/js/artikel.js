@@ -9,6 +9,12 @@ class Artikel {
     const elementuebersicht = this.erstelleElement("ul", "elementuebersicht");
     listenelement.appendChild(elementuebersicht);
 
+    const pfeilContainer = this.erstelleElement("div", "pfeil-container");
+    elementuebersicht.appendChild(pfeilContainer);
+
+    const menuePfeil = this.erstelleElement("img", "pfeil");
+    pfeilContainer.appendChild(menuePfeil);
+
     const eintragsname = this.erstelleEintragsname();
     elementuebersicht.appendChild(eintragsname);
 
@@ -34,15 +40,19 @@ class Artikel {
 
   erstelleEintragsname() {
     const eintragsname = this.erstelleElement("li", "eintragsname");
-    const menuePfeil = this.erstelleElement("img", "pfeil");
-    const artikelname = document.createElement("a");
+    // const menuePfeil = this.erstelleElement("img", "pfeil");
+    // const artikelname = this.erstelleElement("a", "artikelname");
 
     this.artikel != null
-      ? (artikelname.innerText = this.artikel["name"])
-      : (artikelname.innerText = "Neues Medikament");
+      ? (eintragsname.innerText = this.artikel["name"])
+      : (eintragsname.innerText = "Neues Medikament");
 
-    eintragsname.appendChild(menuePfeil);
-    eintragsname.appendChild(artikelname);
+    // this.artikel != null
+    //   ? (artikelname.innerText = this.artikel["name"])
+    //   : (artikelname.innerText = "Neues Medikament");
+
+    // eintragsname.appendChild(menuePfeil);
+    // eintragsname.appendChild(artikelname);
 
     return eintragsname;
   }
@@ -76,21 +86,21 @@ class Artikel {
       "stueckzahl",
     ];
 
-    formulargruppen.forEach((gruppe) => { //gruppe--> gruppenelement?
+    formulargruppen.forEach((gruppenelement) => {
+      //gruppenelement--> gruppenelement?
       const formulargruppenContainer = this.erstelleElement(
         "div",
         "formular-gruppe"
       );
       formular.appendChild(formulargruppenContainer);
-      
-      const label = this.erstelleLabel(gruppe);
+
+      const label = this.erstelleLabel(gruppenelement);
       formulargruppenContainer.appendChild(label);
-      
-      const input = this.erstelleInput(gruppe);
+
+      const input = this.erstelleInput(gruppenelement);
       formulargruppenContainer.appendChild(input);
 
       // if (artikel != null) input.value = artikel["id"];
-
     });
 
     const button = this.erstelleButton();
@@ -99,32 +109,32 @@ class Artikel {
     return formular;
   }
 
-  erstelleInput(gruppe) {
+  erstelleInput(gruppenelement) {
     const input = document.createElement("input");
 
-    gruppe === "id" ||
-    gruppe === "einkaufspreis" ||
-    gruppe === "verkaufspreis" ||
-    gruppe === "stueckzahl"
+    gruppenelement === "id" ||
+    gruppenelement === "einkaufspreis" ||
+    gruppenelement === "verkaufspreis" ||
+    gruppenelement === "stueckzahl"
       ? (input.type = "number")
       : (input.type = "text");
 
-    input.id = `${gruppe}`;
-    input.name = `${gruppe}`;
+    input.id = `${gruppenelement}`;
+    input.name = `${gruppenelement}`;
 
-    if (gruppe === "id") input.disabled = "disabled";
-    if (this.artikel != null) input.value = this.artikel[`${gruppe}`];
+    if (gruppenelement === "id") input.disabled = "disabled";
+    if (this.artikel != null) input.value = this.artikel[`${gruppenelement}`];
 
     return input;
   }
 
-  erstelleLabel(gruppe) {
+  erstelleLabel(gruppenelement) {
     const label = document.createElement("label");
-    label.htmlFor = `${gruppe}`;
+    label.htmlFor = `${gruppenelement}`;
 
-    gruppe === "id"
-      ? (label.innerText = `${gruppe}`.toUpperCase())
-      : (label.innerText = `${gruppe}`
+    gruppenelement === "id"
+      ? (label.innerText = `${gruppenelement}`.toUpperCase())
+      : (label.innerText = `${gruppenelement}`
           .split(" ")
           .map((i) => i.charAt(0).toUpperCase() + i.slice(1))
           .join(" "));

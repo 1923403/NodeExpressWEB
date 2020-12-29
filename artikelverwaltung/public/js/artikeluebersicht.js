@@ -1,29 +1,14 @@
 const liste = document.querySelector("#elemente");
-const listenelemente = document.querySelectorAll(".listenelement");
-const loeschen = document.querySelectorAll(".eintrag-entfernen");
-const hinzufuegen = document.createElement("div");
-var socket = io();
+const socket = io();
 
-// Eintragsmenue ausklappen
-// listenelemente.forEach((element) =>
-//   element.addEventListener("click", detailsAnzeigen)
-// );
-
-// Eintrag entfernen
-// loeschen.forEach((element) =>
-//   element.addEventListener("click", eintragEntfernen)
-// );
-
-// Eintrag hinzufuegen
+// EventListener, um Eintrag hinzuzufuegen
 document.querySelector(".hinzufuegen").addEventListener("click", neuerArtikel);
 
 socket.on("artikelListe", (artikelListe) => {
   artikelListe.forEach((artikel) => {
-    if (istVorhanden(artikel["id"])) {
-      aenderungenEinfuegen(artikel);
-    } else {
-      artikelHinzufuegen(artikel);
-    }
+    istVorhanden(artikel["id"])
+      ? aenderungenEinfuegen(artikel)
+      : artikelHinzufuegen(artikel);
   });
 
   meldungAnzeigen();
@@ -157,11 +142,9 @@ function detailsAnzeigen(e) {
 
   path.querySelector(".elementuebersicht").classList.toggle("aktiv");
 
-  if (formular.style.maxHeight) {
-    menueZuklappen(formular, pfeil);
-  } else {
-    menueAufklappen(formular, pfeil);
-  }
+  formular.style.maxHeight
+    ? menueZuklappen(formular, pfeil)
+    : menueAufklappen(formular, pfeil);
 }
 
 function menueAufklappen(formular, pfeil) {

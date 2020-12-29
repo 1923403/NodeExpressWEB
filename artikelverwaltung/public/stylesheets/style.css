@@ -164,6 +164,8 @@ ul:hover {
 .hinzufuegen {
   display: block;
   margin: auto;
+  margin-bottom: 10px;
+  margin-top: 5px;
   padding: 12px 10px;
   color: white;
   background-color: darkgreen;

@@ -3,30 +3,47 @@ class Artikel {
     this.artikel = artikel;
   }
 
+  /*
+    erstellt neues Listenelement und uebergibt dieses
+  */
   erstellen() {
+    // erstellt Listenelement, das spaeter uebergeben wird
     const listenelement = this.erstelleElement("div", "listenelement");
 
+    // erstellt unordered list, die dem Listenelement angehaengt wird
     const elementuebersicht = this.erstelleElement("ul", "elementuebersicht");
     listenelement.appendChild(elementuebersicht);
 
+    // erstellt Container fuer Menuepfeil, der der unordered list angehaengt wird
     const pfeilContainer = this.erstelleElement("div", "pfeil-container");
     elementuebersicht.appendChild(pfeilContainer);
 
+    // erstellt Menuepfeil, der dem Menue-Container angehaengt wird
     const menuePfeil = this.erstelleElement("img", "pfeil");
     pfeilContainer.appendChild(menuePfeil);
 
-    const eintragsname = this.erstelleEintragsname();
+    // erstellt den in der Liste angezeigten Namen des Artikels und haengt ihn der unordered list an
+    const eintragsname = this.erstelleElement("li", "eintragsname");
+    this.artikel != null
+      ? (eintragsname.innerText = this.artikel["name"])
+      : (eintragsname.innerText = "Neues Medikament");
     elementuebersicht.appendChild(eintragsname);
 
-    const eintragEntfernen = this.erstelleEintragEntfernen();
+    // erstellt Knopf, um Artikel zu entfernen, und haengt ihn der unordered list an
+    const eintragEntfernen = this.erstelleElement("li", "eintrag-entfernen");
+    eintragEntfernen.innerText = "Löschen";
     elementuebersicht.appendChild(eintragEntfernen);
 
+    // erstellt Formular und haengt es dem Listenelement an
     const formular = this.erstelleFormular();
     listenelement.appendChild(formular);
 
     return listenelement;
   }
 
+  /*
+    erstellt neues HTML-Element mit Klassennamen
+  */
   erstelleElement(htmlElement, klassenname) {
     const neuesElement = document.createElement(`${htmlElement}`);
     neuesElement.className = `${klassenname}`;
@@ -38,34 +55,9 @@ class Artikel {
     return neuesElement;
   }
 
-  erstelleEintragsname() {
-    const eintragsname = this.erstelleElement("li", "eintragsname");
-    // const menuePfeil = this.erstelleElement("img", "pfeil");
-    // const artikelname = this.erstelleElement("a", "artikelname");
-
-    this.artikel != null
-      ? (eintragsname.innerText = this.artikel["name"])
-      : (eintragsname.innerText = "Neues Medikament");
-
-    // this.artikel != null
-    //   ? (artikelname.innerText = this.artikel["name"])
-    //   : (artikelname.innerText = "Neues Medikament");
-
-    // eintragsname.appendChild(menuePfeil);
-    // eintragsname.appendChild(artikelname);
-
-    return eintragsname;
-  }
-
-  erstelleEintragEntfernen() {
-    const eintragEntfernen = this.erstelleElement("li", "eintrag-entfernen");
-    const beschriftung = document.createElement("a");
-    beschriftung.innerText = "Löschen";
-    eintragEntfernen.appendChild(beschriftung);
-
-    return eintragEntfernen;
-  }
-
+  /*
+    erstellt neues Formularelement mit Knopf zum Speichern sowie input- und label-Tag jeweils zusammen in Container
+  */
   erstelleFormular() {
     const formularContainer = this.erstelleElement("div", "formular");
     const formular = this.erstelleFormularGruppen();
@@ -87,7 +79,6 @@ class Artikel {
     ];
 
     formulargruppen.forEach((gruppenelement) => {
-      //gruppenelement--> gruppenelement?
       const formulargruppenContainer = this.erstelleElement(
         "div",
         "formular-gruppe"
@@ -99,8 +90,6 @@ class Artikel {
 
       const input = this.erstelleInput(gruppenelement);
       formulargruppenContainer.appendChild(input);
-
-      // if (artikel != null) input.value = artikel["id"];
     });
 
     const button = this.erstelleButton();
@@ -150,6 +139,3 @@ class Artikel {
     return button;
   }
 }
-
-// bla = new Artikel();
-// bla.erstellen();

@@ -4,6 +4,19 @@ const loeschen = document.querySelectorAll(".eintrag-entfernen");
 const hinzufuegen = document.createElement("div");
 var socket = io();
 
+// Eintragsmenue ausklappen
+// listenelemente.forEach((element) =>
+//   element.addEventListener("click", detailsAnzeigen)
+// );
+
+// Eintrag entfernen
+// loeschen.forEach((element) =>
+//   element.addEventListener("click", eintragEntfernen)
+// );
+
+// Eintrag hinzufuegen
+document.querySelector(".hinzufuegen").addEventListener("click", neuerArtikel);
+
 socket.on("artikelListe", (artikelListe) => {
   artikelListe.forEach((artikel) => {
     if (istVorhanden(artikel["id"])) {
@@ -20,7 +33,6 @@ socket.on("artikelLoeschen", (id) => {
   if (istVorhanden(id)) {
     const listenelemente = document.querySelectorAll(".listenelement");
 
-    // ueberfluessig, wenn e.path[3].remove in Eintrag entfernen behalten wird!
     for (let i = 0; i < listenelemente.length; i++) {
       if (listenelemente[i].querySelector("#id").value == id) {
         console.log("LOESCHEN");
@@ -59,12 +71,10 @@ function aenderungenEinfuegen(artikel) {
       suchbegriffe.forEach((element) => {
         listenelemente[i].querySelector(`#${element}`).value =
           artikel[`${element}`];
-        //  PRODUZIERT FEHLER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
         if (element === "name") {
           listenelemente[i].querySelector(".eintragsname").innerText =
             artikel[`${element}`];
-          // listenelemente[i].querySelector(".artikelname").innerText =
-          //   artikel[`${element}`];
         }
       });
     }
@@ -88,11 +98,6 @@ function meldungAnzeigen() {
     meldung.style.visibility = "hidden";
   }, 750);
 }
-
-// Eintragsmenue ausklappen
-listenelemente.forEach((element) =>
-  element.addEventListener("click", detailsAnzeigen)
-);
 
 function formularAuswerten(e) {
   const data = new FormData();
@@ -122,10 +127,6 @@ function formularAuswerten(e) {
       e.path[3].querySelector(
         ".eintragsname"
       ).innerText = formularElement.querySelector(`#${element}`).value;
-    // if (element === "name")
-    //   e.path[3].querySelector(
-    //     ".artikelname"
-    //   ).innerText = formularElement.querySelector(`#${element}`).value;
   });
 
   if (data.get("id") === "") {
@@ -145,26 +146,16 @@ function formularAuswerten(e) {
 
 function detailsAnzeigen(e) {
   // FIREFOX!!!!!!!!!!!!
-  console.log(e.path[3]);
   let path;
-  if (e.path[2].querySelector(".formular") == null) path = e.path[3];
-  else path = e.path[2];
+
+  e.path[2].querySelector(".formular") == null
+    ? (path = e.path[3])
+    : (path = e.path[2]);
+
   let formular = path.querySelector(".formular");
   let pfeil = path.querySelector(".pfeil");
-  path.querySelector(".elementuebersicht").classList.toggle("aktiv");
-  // let formular = e.path[2].querySelector(".formular");
-  // console.log("FORMULAR:");
-  // console.log(formular);
-  // let pfeil = e.path[2].querySelector(".pfeil");
-  // console.log("PFEIL");
 
-  // console.log(e.path[2].querySelector(".pfeil"));
-  // console.log("e.path[3]");
-  //console.log(e.path[3]);
-  // console.log("pfeil:");
-  // console.log(pfeil);
-  // e.path[2].querySelector(".elementuebersicht").classList.toggle("aktiv");
-  // console.log(e.path[2].querySelector(".elementuebersicht"));
+  path.querySelector(".elementuebersicht").classList.toggle("aktiv");
 
   if (formular.style.maxHeight) {
     menueZuklappen(formular, pfeil);
@@ -183,23 +174,13 @@ function menueZuklappen(formular, pfeil) {
   pfeil.style.transform = "rotate(0deg)";
 }
 
-// Eintrag entfernen
-loeschen.forEach((element) =>
-  element.addEventListener("click", eintragEntfernen)
-);
-
 function eintragEntfernen(e) {
   // CODE FUER FIREFOX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  const id = e.target.parentNode.parentNode.parentNode.querySelector("#id")
-    .value;
+  const id = e.target.parentNode.parentNode.querySelector("#id").value;
   if (id != "") socket.emit("artikelLoeschen", id);
   // FIREFOX!!!!!!!!!
-  // wenn Eintrag entfernt wird, können ungespeicherte Listen nicht geloescht werden!
-  e.path[3].remove();
+  e.path[2].remove();
 }
-
-// Eintrag hinzufuegen
-document.querySelector(".hinzufuegen").addEventListener("click", neuerArtikel);
 
 function neuerArtikel() {
   artikelHinzufuegen();
@@ -225,14 +206,11 @@ function artikelHinzufuegen(artikel) {
 
   neuerArtikel
     .querySelector(".eintrag-entfernen")
-    .firstChild.addEventListener("click", eintragEntfernen);
+    .addEventListener("click", eintragEntfernen);
 
   neuerArtikel
     .querySelector(".speichern-button")
     .addEventListener("click", formularAuswerten);
 
-  // console.log(neuerArtikel.querySelector(".eintrag-entfernen"));
-
   liste.appendChild(neuerArtikel);
-  // console.log(liste);
 }

@@ -14,3 +14,4 @@ Optional:
 BUGS nach Ueberarbeitung:
 - wenn neuer Artikel erstellt wird, verschwindet Liste, nach reload wieder da
 - wenn man Artikel aktualisiert, werden andere grau hinterlegt
+- Speichern-Button noch außerhalb

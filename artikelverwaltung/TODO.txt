@@ -2,7 +2,6 @@
 - CODE UEBERARBEITEN!!!!
 
 Optional:
-- ID vergabe auf Server ueberarbeiten? Id darf nicht bei 0 starten
 - Sortieren
 - Info über fehlende Speicherung
 - ueberpruefen ob bei Speicherung sync ueberhaupt notwendig (wurde etwas geandert?)
@@ -10,3 +9,5 @@ Optional:
 
 Bugs (optional):
 - lange Bezeichner ragen in andere Elemente
+
+Unterschied io.emit / socket.emit?

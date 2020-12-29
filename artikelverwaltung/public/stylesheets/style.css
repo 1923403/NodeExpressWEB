@@ -169,7 +169,6 @@ ul:hover {
   transition: max-height 0.2s ease-out;
   border-radius: 0px 0px 10px 10px;
   width: 100%;
-
   background-color: var(--active-color);
 }
 

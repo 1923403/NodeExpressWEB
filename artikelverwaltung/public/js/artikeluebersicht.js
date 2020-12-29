@@ -121,7 +121,11 @@ function formularAuswerten(e) {
   socket.emit("artikel", neuerArtikel);
 
   // FIREFOX!!!!!!!!!!!!!!!!!!!
-  menueZuklappen(e.path[3], e.path[4].querySelector(".pfeil"));
+  console.log(e.path[3]);
+  menueZuklappen(
+    e.path[3].querySelector(".formular"),
+    e.path[4].querySelector(".pfeil")
+  );
   e.path[4].querySelector(".elementuebersicht").classList.toggle("aktiv");
 }
 
@@ -178,224 +182,246 @@ function neuerArtikel() {
 }
 
 function artikelHinzufuegen(artikel) {
-  // Listenelement erstellen
-  const hinzufuegen = document.createElement("div");
-  hinzufuegen.className = "listenelement";
+  // // Listenelement erstellen
+  // const hinzufuegen = document.createElement("div");
+  // hinzufuegen.className = "listenelement";
 
-  // ul erstellen
-  const ul = document.createElement("ul");
-  ul.className = " elementuebersicht";
+  // // ul erstellen
+  // const ul = document.createElement("ul");
+  // ul.className = "elementuebersicht";
 
-  // li - eintragsname
-  const liName = document.createElement("li");
-  liName.className = "eintragsname";
-  const imgPfeil = document.createElement("img");
-  imgPfeil.className = "pfeil";
-  imgPfeil.src = "./images/arrow-right-24px.svg";
-  const aName = document.createElement("a");
-  if (artikel != null) aName.innerText = artikel["name"];
-  else aName.innerText = "Neues Medikament";
-  liName.appendChild(imgPfeil);
-  liName.appendChild(aName);
-  liName.addEventListener("click", detailsAnzeigen);
+  // // li - eintragsname
+  // const liName = document.createElement("li");
+  // liName.className = "eintragsname";
+  // const imgPfeil = document.createElement("img");
+  // imgPfeil.className = "pfeil";
+  // imgPfeil.src = "./images/arrow-right-24px.svg";
+  // const aName = document.createElement("a");
 
-  // li - eintrag-entfernen
-  const liEntfernen = document.createElement("li");
-  liEntfernen.className = "eintrag-entfernen";
-  const aEntfernen = document.createElement("a");
-  aEntfernen.addEventListener("click", eintragEntfernen);
-  aEntfernen.innerText = "Löschen";
-  liEntfernen.appendChild(aEntfernen);
+  // artikel != null
+  //   ? (aName.innerText = artikel["name"])
+  //   : (aName.innerText = "Neues Medikament");
 
-  // fuege lis der ul hinzu
-  ul.appendChild(liName);
-  ul.appendChild(liEntfernen);
+  // // if (artikel != null) aName.innerText = artikel["name"];
+  // // else aName.innerText = "Neues Medikament";
+  // liName.appendChild(imgPfeil);
+  // liName.appendChild(aName);
+  // liName.addEventListener("click", detailsAnzeigen);
 
-  // ul zu Liste hinzufuegen
-  hinzufuegen.appendChild(ul);
+  // // li - eintrag-entfernen
+  // const liEntfernen = document.createElement("li");
+  // liEntfernen.className = "eintrag-entfernen";
+  // const aEntfernen = document.createElement("a");
+  // aEntfernen.addEventListener("click", eintragEntfernen);
+  // aEntfernen.innerText = "Löschen";
+  // liEntfernen.appendChild(aEntfernen);
 
-  // div - formular
-  const divFormular = document.createElement("div");
-  divFormular.className = "formular";
-  hinzufuegen.appendChild(divFormular);
+  // // fuege lis der ul hinzu
+  // ul.appendChild(liName);
+  // ul.appendChild(liEntfernen);
 
-  // Formular
-  const formular = document.createElement("form");
-  formular.action = "";
-  divFormular.appendChild(formular);
+  // // ul zu Liste hinzufuegen
+  // hinzufuegen.appendChild(ul);
 
-  /*
-    Formular-Gruppe 1 - Anfang
-  */
+  // // div - formular
+  // const divFormular = document.createElement("div");
+  // divFormular.className = "formular";
+  // hinzufuegen.appendChild(divFormular);
 
-  // Container erstellen
-  let divFormularGruppe = document.createElement("div");
-  divFormularGruppe.className = "formular-gruppe";
-  formular.appendChild(divFormularGruppe);
+  // // Formular
+  // const formular = document.createElement("form");
+  // formular.action = "";
+  // divFormular.appendChild(formular);
 
-  // Input erstellen
-  let input = document.createElement("input");
-  input.type = "number";
-  input.id = "id";
-  input.name = "id";
-  input.readOnly = true;
-  input.disabled = "disabled";
-  divFormularGruppe.appendChild(input);
-  if (artikel != null) input.value = artikel["id"];
+  // /*
+  //   Formular-Gruppe 1 - Anfang
+  // */
 
-  // Label erstellen
-  let label = document.createElement("label");
-  label.htmlFor = "id";
-  label.innerText = "ID";
-  divFormularGruppe.appendChild(label);
+  // // Container erstellen
+  // let divFormularGruppe = document.createElement("div");
+  // divFormularGruppe.className = "formular-gruppe";
+  // formular.appendChild(divFormularGruppe);
 
-  /*
-    Formular-Gruppe 2 - Anfang
-  */
+  // // Input erstellen
+  // let input = document.createElement("input");
+  // input.type = "number";
+  // input.id = "id";
+  // input.name = "id";
+  // // input.readOnly = true;
+  // input.disabled = "disabled";
+  // divFormularGruppe.appendChild(input);
+  // if (artikel != null) input.value = artikel["id"];
 
-  // Container erstellen
-  divFormularGruppe = document.createElement("div");
-  divFormularGruppe.className = "formular-gruppe";
-  formular.appendChild(divFormularGruppe);
+  // // Label erstellen
+  // let label = document.createElement("label");
+  // label.htmlFor = "id";
+  // label.innerText = "ID";
+  // divFormularGruppe.appendChild(label);
 
-  // Input erstellen
-  input = document.createElement("input");
-  input.type = "text";
-  input.id = "name";
-  input.name = "name";
-  divFormularGruppe.appendChild(input);
-  if (artikel != null) input.value = artikel["name"];
+  // /*
+  //   Formular-Gruppe 2 - Anfang
+  // */
 
-  // Label erstellen
-  label = document.createElement("label");
-  label.htmlFor = "name";
-  label.innerText = "Name";
-  divFormularGruppe.appendChild(label);
+  // // Container erstellen
+  // divFormularGruppe = document.createElement("div");
+  // divFormularGruppe.className = "formular-gruppe";
+  // formular.appendChild(divFormularGruppe);
 
-  /*
-    Formular-Gruppe 3 - Anfang
-  */
+  // // Input erstellen
+  // input = document.createElement("input");
+  // input.type = "text";
+  // input.id = "name";
+  // input.name = "name";
+  // divFormularGruppe.appendChild(input);
+  // if (artikel != null) input.value = artikel["name"];
 
-  // Container erstellen
-  divFormularGruppe = document.createElement("div");
-  divFormularGruppe.className = "formular-gruppe";
-  formular.appendChild(divFormularGruppe);
+  // // Label erstellen
+  // label = document.createElement("label");
+  // label.htmlFor = "name";
+  // label.innerText = "Name";
+  // divFormularGruppe.appendChild(label);
 
-  // Input erstellen
-  input = document.createElement("input");
-  input.type = "text";
-  input.id = "hersteller";
-  input.name = "hersteller";
-  divFormularGruppe.appendChild(input);
-  if (artikel != null) input.value = artikel["hersteller"];
+  // /*
+  //   Formular-Gruppe 3 - Anfang
+  // */
 
-  // Label erstellen
-  label = document.createElement("label");
-  label.htmlFor = "hersteller";
-  label.innerText = "Hersteller";
-  divFormularGruppe.appendChild(label);
+  // // Container erstellen
+  // divFormularGruppe = document.createElement("div");
+  // divFormularGruppe.className = "formular-gruppe";
+  // formular.appendChild(divFormularGruppe);
 
-  /*
-    Formular-Gruppe 4 - Anfang
-  */
+  // // Input erstellen
+  // input = document.createElement("input");
+  // input.type = "text";
+  // input.id = "hersteller";
+  // input.name = "hersteller";
+  // divFormularGruppe.appendChild(input);
+  // if (artikel != null) input.value = artikel["hersteller"];
 
-  // Container erstellen
-  divFormularGruppe = document.createElement("div");
-  divFormularGruppe.className = "formular-gruppe";
-  formular.appendChild(divFormularGruppe);
+  // // Label erstellen
+  // label = document.createElement("label");
+  // label.htmlFor = "hersteller";
+  // label.innerText = "Hersteller";
+  // divFormularGruppe.appendChild(label);
 
-  // Input erstellen
-  input = document.createElement("input");
-  input.type = "number";
-  input.id = "einkaufspreis";
-  input.name = "einkaufspreis";
-  divFormularGruppe.appendChild(input);
-  if (artikel != null) input.value = artikel["einkaufspreis"];
+  // /*
+  //   Formular-Gruppe 4 - Anfang
+  // */
 
-  // Label erstellen
-  label = document.createElement("label");
-  label.htmlFor = "einkaufspreis";
-  label.innerText = "Einkaufspreis";
-  divFormularGruppe.appendChild(label);
+  // // Container erstellen
+  // divFormularGruppe = document.createElement("div");
+  // divFormularGruppe.className = "formular-gruppe";
+  // formular.appendChild(divFormularGruppe);
 
-  /*
-    Formular-Gruppe 5 - Anfang
-  */
+  // // Input erstellen
+  // input = document.createElement("input");
+  // input.type = "number";
+  // input.id = "einkaufspreis";
+  // input.name = "einkaufspreis";
+  // divFormularGruppe.appendChild(input);
+  // if (artikel != null) input.value = artikel["einkaufspreis"];
 
-  // Container erstellen
-  divFormularGruppe = document.createElement("div");
-  divFormularGruppe.className = "formular-gruppe";
-  formular.appendChild(divFormularGruppe);
+  // // Label erstellen
+  // label = document.createElement("label");
+  // label.htmlFor = "einkaufspreis";
+  // label.innerText = "Einkaufspreis";
+  // divFormularGruppe.appendChild(label);
 
-  // Input erstellen
-  input = document.createElement("input");
-  input.type = "number";
-  input.id = "verkaufspreis";
-  input.name = "verkaufspreis";
-  divFormularGruppe.appendChild(input);
-  if (artikel != null) input.value = artikel["verkaufspreis"];
+  // /*
+  //   Formular-Gruppe 5 - Anfang
+  // */
 
-  // Label erstellen
-  label = document.createElement("label");
-  label.htmlFor = "verkaufspreis";
-  label.innerText = "Verkaufspreis";
-  divFormularGruppe.appendChild(label);
+  // // Container erstellen
+  // divFormularGruppe = document.createElement("div");
+  // divFormularGruppe.className = "formular-gruppe";
+  // formular.appendChild(divFormularGruppe);
 
-  /*
-    Formular-Gruppe 7 - Anfang
-  */
+  // // Input erstellen
+  // input = document.createElement("input");
+  // input.type = "number";
+  // input.id = "verkaufspreis";
+  // input.name = "verkaufspreis";
+  // divFormularGruppe.appendChild(input);
+  // if (artikel != null) input.value = artikel["verkaufspreis"];
 
-  // Container erstellen
-  divFormularGruppe = document.createElement("div");
-  divFormularGruppe.className = "formular-gruppe";
-  formular.appendChild(divFormularGruppe);
+  // // Label erstellen
+  // label = document.createElement("label");
+  // label.htmlFor = "verkaufspreis";
+  // label.innerText = "Verkaufspreis";
+  // divFormularGruppe.appendChild(label);
 
-  // Input erstellen
-  input = document.createElement("input");
-  input.type = "text";
-  input.id = "kategorie";
-  input.name = "kategorie";
-  divFormularGruppe.appendChild(input);
-  if (artikel != null) input.value = artikel["kategorie"];
+  // /*
+  //   Formular-Gruppe 7 - Anfang
+  // */
 
-  // Label erstellen
-  label = document.createElement("label");
-  label.htmlFor = "kategorie";
-  label.innerText = "Kategorie";
-  divFormularGruppe.appendChild(label);
+  // // Container erstellen
+  // divFormularGruppe = document.createElement("div");
+  // divFormularGruppe.className = "formular-gruppe";
+  // formular.appendChild(divFormularGruppe);
 
-  /*
-    Formular-Gruppe 8 - Anfang
-  */
+  // // Input erstellen
+  // input = document.createElement("input");
+  // input.type = "text";
+  // input.id = "kategorie";
+  // input.name = "kategorie";
+  // divFormularGruppe.appendChild(input);
+  // if (artikel != null) input.value = artikel["kategorie"];
 
-  // Container erstellen
-  divFormularGruppe = document.createElement("div");
-  divFormularGruppe.className = "formular-gruppe";
-  formular.appendChild(divFormularGruppe);
+  // // Label erstellen
+  // label = document.createElement("label");
+  // label.htmlFor = "kategorie";
+  // label.innerText = "Kategorie";
+  // divFormularGruppe.appendChild(label);
 
-  // Input erstellen
-  input = document.createElement("input");
-  input.type = "number";
-  input.id = "stueckzahl";
-  input.name = "stueckzahl";
-  divFormularGruppe.appendChild(input);
-  if (artikel != null) input.value = artikel["stueckzahl"];
+  // /*
+  //   Formular-Gruppe 8 - Anfang
+  // */
 
-  // Label erstellen
-  label = document.createElement("label");
-  label.htmlFor = "stueckzahl";
-  label.innerText = "Stückzahl";
-  divFormularGruppe.appendChild(label);
+  // // Container erstellen
+  // divFormularGruppe = document.createElement("div");
+  // divFormularGruppe.className = "formular-gruppe";
+  // formular.appendChild(divFormularGruppe);
 
-  // Button erstellen
-  button = document.createElement("button");
-  button.type = "button";
-  button.className = "speichern-button";
-  button.innerText = "Speichern";
-  button.addEventListener("click", formularAuswerten);
-  divFormularGruppe.appendChild(button);
+  // // Input erstellen
+  // input = document.createElement("input");
+  // input.type = "number";
+  // input.id = "stueckzahl";
+  // input.name = "stueckzahl";
+  // divFormularGruppe.appendChild(input);
+  // if (artikel != null) input.value = artikel["stueckzahl"];
 
-  // Uebergabe an Liste
-  liste.appendChild(hinzufuegen);
+  // // Label erstellen
+  // label = document.createElement("label");
+  // label.htmlFor = "stueckzahl";
+  // label.innerText = "Stückzahl";
+  // divFormularGruppe.appendChild(label);
+
+  // // Button erstellen
+  // button = document.createElement("button");
+  // button.type = "button";
+  // button.className = "speichern-button";
+  // button.innerText = "Speichern";
+  // button.addEventListener("click", formularAuswerten);
+  // divFormularGruppe.appendChild(button);
+
+  // // Uebergabe an Liste
+  // liste.appendChild(hinzufuegen);
+  const neuerArtikel = new Artikel(artikel).erstellen();
+
+  neuerArtikel
+    .querySelector(".eintragsname")
+    .addEventListener("click", detailsAnzeigen);
+
+  neuerArtikel
+    .querySelector(".eintrag-entfernen")
+    .firstChild.addEventListener("click", eintragEntfernen);
+
+  neuerArtikel
+    .querySelector(".speichern-button")
+    .addEventListener("click", formularAuswerten);
+
+  // console.log(neuerArtikel.querySelector(".eintrag-entfernen"));
+
+  liste.appendChild(neuerArtikel);
   // console.log(liste);
 }

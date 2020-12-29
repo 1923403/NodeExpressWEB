@@ -10,3 +10,7 @@ Optional:
 - Sortieren
 - Info über fehlende Speicherung
 - ueberpruefen ob bei Speicherung sync ueberhaupt notwendig (wurde etwas geandert?)
+
+BUGS nach Ueberarbeitung:
+- wenn neuer Artikel erstellt wird, verschwindet Liste, nach reload wieder da
+- wenn man Artikel aktualisiert, werden andere grau hinterlegt

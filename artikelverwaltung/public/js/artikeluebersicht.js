@@ -1,5 +1,6 @@
 const liste = document.querySelector("#elemente");
-const socket = io();
+//io = require("socket.io-client");
+var socket = io();
 
 // EventListener, um Eintrag hinzuzufuegen
 document.querySelector(".hinzufuegen").addEventListener("click", neuerArtikel);
@@ -53,7 +54,6 @@ function aenderungenEinfuegen(artikel) {
     if (listenelemente[i].querySelector("#id").value == artikel["id"]) {
       suchbegriffe.forEach((element) => {
         listenelemente[i].querySelector(`#${element}`).value = artikel[element];
-        // artikel[`${element}`];
 
         if (element === "name")
           listenelemente[i].querySelector(".eintragsname").innerText =

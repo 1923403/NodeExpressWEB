@@ -3,30 +3,19 @@ var io = socket_io();
 var socketAPI = {};
 const path = require("path");
 const fs = require("fs");
-socketAPI.io = io;
 
 io.on("connection", (socket) => {
   socket.emit("artikelListe", holeBestandsdaten());
-  // sendeArtikelliste(socket);
+  console.log("NEUE VERBINDUNG");
 
   socket.on("artikel", (artikel) => verarbeiteNeueDaten(artikel));
-  // const neueArtikeldaten = JSON.parse(artikel);
-  // const bestand = holeBestandsdaten();
-  // let artikelId = holeLetzteId(bestand);
-  // if (neueArtikeldaten["id"] === "") {
-  //   neueArtikeldaten["id"] = ++artikelId;
-  //   bestand.push(neueArtikeldaten);
-  //   aktualisiereBestandsliste(bestand);
-  // } else {
-  //   artikelAendern(neueArtikeldaten, bestand);
-  // }
+
+  socket.on("disconnect", (reason) => {
+    console.log("disconnected... because " + reason);
+  });
 
   socket.on("artikelLoeschen", (id) => loescheArtikel(id));
 });
-
-// function sendeArtikelliste(socket) {
-//   socket.emit("artikelListe", holeBestandsdaten());
-// }
 
 function holeBestandsdaten() {
   const rohdaten = fs.readFileSync(
@@ -88,17 +77,6 @@ function artikelAendern(artikel, bestand) {
       suchbegriffe.forEach(
         (element) => (bestand[i][element] = artikel[element])
       );
-
-      // bestand[i]["name"] = artikel["name"];
-      // bestand[i]["hersteller"] = artikel["hersteller"];
-      // bestand[i]["einkaufspreis"] = artikel["einkaufspreis"];
-      // bestand[i]["verkaufspreis"] = artikel["verkaufspreis"];
-      // bestand[i]["kategorie"] = artikel["kategorie"];
-      // bestand[i]["stueckzahl"] = artikel["stueckzahl"];
-      // console.log("id gefunden...updating...");
-
-      // weg? hat keine auswirkung
-      break;
     }
   }
   aktualisiereBestandsliste(bestand);
@@ -109,4 +87,5 @@ function aktualisiereBestandsliste(bestandsliste) {
   fs.writeFileSync(path.join(__dirname, "..", "data", "listen.json"), daten);
 }
 
+socketAPI.io = io;
 module.exports = socketAPI;

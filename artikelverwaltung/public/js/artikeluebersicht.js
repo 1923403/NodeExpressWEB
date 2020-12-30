@@ -5,6 +5,8 @@ var socket = io();
 // EventListener, um Eintrag hinzuzufuegen
 document.querySelector(".hinzufuegen").addEventListener("click", neuerArtikel);
 
+socket.emit("holeArtikelliste");
+
 socket.on("artikelListe", (artikelListe) => {
   artikelListe.forEach((artikel) => {
     istVorhanden(artikel["id"])
@@ -16,6 +18,7 @@ socket.on("artikelListe", (artikelListe) => {
 });
 
 socket.on("artikelLoeschen", (id) => {
+  console.log(id);
   if (istVorhanden(id)) {
     const listenelemente = document.querySelectorAll(".listenelement");
 
@@ -26,6 +29,10 @@ socket.on("artikelLoeschen", (id) => {
       }
     }
   }
+});
+
+socket.on("neuerArtikel", (artikel) => {
+  artikelHinzufuegen(artikel);
 });
 
 function istVorhanden(id) {

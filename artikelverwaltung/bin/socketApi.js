@@ -5,17 +5,24 @@ const path = require("path");
 const fs = require("fs");
 
 io.on("connection", (socket) => {
-  socket.emit("artikelListe", holeBestandsdaten());
+  socket.on("holeArtikelliste", () => sendeArtikelliste(socket));
+  // socket.emit("artikelListe", holeBestandsdaten());
   console.log("NEUE VERBINDUNG");
-
-  socket.on("artikel", (artikel) => verarbeiteNeueDaten(artikel));
 
   socket.on("disconnect", (reason) => {
     console.log("disconnected... because " + reason);
   });
-
-  socket.on("artikelLoeschen", (id) => loescheArtikel(id));
+  socket.on("artikel", (artikel) => verarbeiteNeueDaten(artikel));
+  socket.on("artikelLoeschen", (id) => {
+    loescheArtikel(id);
+    socket.broadcast.emit("artikelLoeschen", id);
+  });
 });
+
+function sendeArtikelliste(socket) {
+  console.log("HALLO");
+  socket.emit("artikelListe", holeBestandsdaten());
+}
 
 function holeBestandsdaten() {
   const rohdaten = fs.readFileSync(
@@ -36,6 +43,8 @@ function verarbeiteNeueDaten(artikel) {
     neueArtikeldaten["id"] = ++artikelId;
     bestand.push(neueArtikeldaten);
     aktualisiereBestandsliste(bestand);
+
+    io.emit("neuerArtikel", neueArtikeldaten);
   } else {
     artikelAendern(neueArtikeldaten, bestand);
   }
@@ -53,7 +62,7 @@ function loescheArtikel(id) {
 
   aktualisiereBestandsliste(bestand);
 
-  io.emit("artikelLoeschen", id);
+  // io.emit("artikelLoeschen", id);
 }
 
 function holeLetzteId(bestand) {

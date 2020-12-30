@@ -32,9 +32,7 @@ function istVorhanden(id) {
   let istVorhanden = false;
 
   idNummern.forEach((idNummer) => {
-    if (idNummer.value == id) {
-      istVorhanden = true;
-    }
+    if (idNummer.value == id) istVorhanden = true;
   });
 
   return istVorhanden;
@@ -54,13 +52,12 @@ function aenderungenEinfuegen(artikel) {
   for (let i = 0; i < listenelemente.length; i++) {
     if (listenelemente[i].querySelector("#id").value == artikel["id"]) {
       suchbegriffe.forEach((element) => {
-        listenelemente[i].querySelector(`#${element}`).value =
-          artikel[`${element}`];
+        listenelemente[i].querySelector(`#${element}`).value = artikel[element];
+        // artikel[`${element}`];
 
-        if (element === "name") {
+        if (element === "name")
           listenelemente[i].querySelector(".eintragsname").innerText =
-            artikel[`${element}`];
-        }
+            artikel[element];
       });
     }
   }
@@ -73,15 +70,10 @@ function meldungAnzeigen() {
   const nachricht = meldung.querySelector(".nachricht");
   nachricht.innerText = "synchronisiere";
 
-  for (let i = 1; i < 7; i++) {
-    setTimeout(() => {
-      nachricht.innerText += ".";
-    }, i * 200);
-  }
+  for (let i = 1; i < 7; i++)
+    setTimeout(() => (nachricht.innerText += "."), i * 200);
 
-  setTimeout(() => {
-    meldung.style.visibility = "hidden";
-  }, 750);
+  setTimeout(() => (meldung.style.visibility = "hidden"), 750);
 }
 
 function formularAuswerten(e) {
@@ -101,9 +93,9 @@ function formularAuswerten(e) {
   suchbegriffe.forEach((element) => {
     element === "name" &&
     formularElement.querySelector(`#${element}`).value === ""
-      ? data.append(`${element}`, "Neues Medikament")
+      ? data.append(element, "Neues Medikament")
       : data.append(
-          `${element}`,
+          element,
           formularElement.querySelector(`#${element}`).value
         );
 

@@ -45,8 +45,8 @@ class Artikel {
     erstellt neues HTML-Element mit Klassennamen
   */
   erstelleElement(htmlElement, klassenname) {
-    const neuesElement = document.createElement(`${htmlElement}`);
-    neuesElement.className = `${klassenname}`;
+    const neuesElement = document.createElement(htmlElement);
+    neuesElement.className = klassenname;
 
     if (htmlElement === "img" && klassenname === "pfeil") {
       neuesElement.src = "./images/arrow-right-24px.svg";
@@ -108,22 +108,22 @@ class Artikel {
       ? (input.type = "number")
       : (input.type = "text");
 
-    input.id = `${gruppenelement}`;
-    input.name = `${gruppenelement}`;
+    input.id = gruppenelement;
+    input.name = gruppenelement;
 
     if (gruppenelement === "id") input.disabled = "disabled";
-    if (this.artikel != null) input.value = this.artikel[`${gruppenelement}`];
+    if (this.artikel != null) input.value = this.artikel[gruppenelement];
 
     return input;
   }
 
   erstelleLabel(gruppenelement) {
     const label = document.createElement("label");
-    label.htmlFor = `${gruppenelement}`;
+    label.htmlFor = gruppenelement;
 
     gruppenelement === "id"
-      ? (label.innerText = `${gruppenelement}`.toUpperCase())
-      : (label.innerText = `${gruppenelement}`
+      ? (label.innerText = gruppenelement.toUpperCase())
+      : (label.innerText = gruppenelement
           .split(" ")
           .map((i) => i.charAt(0).toUpperCase() + i.slice(1))
           .join(" "));

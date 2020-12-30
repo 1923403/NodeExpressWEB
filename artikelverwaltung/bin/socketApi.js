@@ -9,25 +9,19 @@ io.on("connection", (socket) => {
   socket.emit("artikelListe", holeBestandsdaten());
   // sendeArtikelliste(socket);
 
-  socket.on("artikel", (artikel) => {
-    verarbeiteNeueDaten(artikel);
-    // const neueArtikeldaten = JSON.parse(artikel);
-    // const bestand = holeBestandsdaten();
-    // let artikelId = holeLetzteId(bestand);
-    // if (neueArtikeldaten["id"] === "") {
-    //   neueArtikeldaten["id"] = ++artikelId;
-    //   bestand.push(neueArtikeldaten);
-    //   aktualisiereBestandsliste(bestand);
-    // } else {
-    //   artikelAendern(neueArtikeldaten, bestand);
-    // }
-  });
+  socket.on("artikel", (artikel) => verarbeiteNeueDaten(artikel));
+  // const neueArtikeldaten = JSON.parse(artikel);
+  // const bestand = holeBestandsdaten();
+  // let artikelId = holeLetzteId(bestand);
+  // if (neueArtikeldaten["id"] === "") {
+  //   neueArtikeldaten["id"] = ++artikelId;
+  //   bestand.push(neueArtikeldaten);
+  //   aktualisiereBestandsliste(bestand);
+  // } else {
+  //   artikelAendern(neueArtikeldaten, bestand);
+  // }
 
-  socket.on("artikelLoeschen", (id) => {
-    loescheArtikel(id);
-
-    io.emit("artikelLoeschen", id);
-  });
+  socket.on("artikelLoeschen", (id) => loescheArtikel(id));
 });
 
 // function sendeArtikelliste(socket) {
@@ -69,6 +63,8 @@ function loescheArtikel(id) {
   }
 
   aktualisiereBestandsliste(bestand);
+
+  io.emit("artikelLoeschen", id);
 }
 
 function holeLetzteId(bestand) {
@@ -88,9 +84,10 @@ function artikelAendern(artikel, bestand) {
 
   for (let i = 0; i < bestand.length; i++) {
     if (bestand[i]["id"] == artikel["id"]) {
-      suchbegriffe.forEach((element) => {
-        bestand[i][`${element}`] = artikel[`${element}`];
-      });
+      console.log(bestand[i]["id"] == artikel["id"]);
+      suchbegriffe.forEach(
+        (element) => (bestand[i][element] = artikel[element])
+      );
 
       // bestand[i]["name"] = artikel["name"];
       // bestand[i]["hersteller"] = artikel["hersteller"];
@@ -99,6 +96,8 @@ function artikelAendern(artikel, bestand) {
       // bestand[i]["kategorie"] = artikel["kategorie"];
       // bestand[i]["stueckzahl"] = artikel["stueckzahl"];
       // console.log("id gefunden...updating...");
+
+      // weg? hat keine auswirkung
       break;
     }
   }

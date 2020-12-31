@@ -8,6 +8,7 @@ document.querySelector(".hinzufuegen").addEventListener("click", neuerArtikel);
 socket.emit("holeArtikelliste");
 
 socket.on("artikelListe", (artikelListe) => {
+  console.log("neue Daten");
   artikelListe.forEach((artikel) => {
     istVorhanden(artikel["id"])
       ? aenderungenEinfuegen(artikel)

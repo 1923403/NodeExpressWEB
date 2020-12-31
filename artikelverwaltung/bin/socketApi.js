@@ -12,10 +12,14 @@ io.on("connection", (socket) => {
   socket.on("disconnect", (reason) => {
     console.log("disconnected... because " + reason);
   });
-  socket.on("artikel", (artikel) => verarbeiteNeueDaten(artikel));
+
+  socket.on("artikel", (artikel) => {
+    verarbeiteNeueDaten(artikel, io);
+  });
+
   socket.on("artikelLoeschen", (id) => {
     loescheArtikel(id);
-    socket.broadcast.emit("artikelLoeschen", id);
+    io.emit("artikelLoeschen", id);
   });
 });
 
@@ -43,8 +47,6 @@ function verarbeiteNeueDaten(artikel) {
     neueArtikeldaten["id"] = ++artikelId;
     bestand.push(neueArtikeldaten);
     aktualisiereBestandsliste(bestand);
-
-    io.emit("neuerArtikel", neueArtikeldaten);
   } else {
     artikelAendern(neueArtikeldaten, bestand);
   }

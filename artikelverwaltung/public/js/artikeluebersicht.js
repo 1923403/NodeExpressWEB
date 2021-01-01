@@ -8,7 +8,6 @@ document.querySelector(".hinzufuegen").addEventListener("click", neuerArtikel);
 socket.emit("holeArtikelliste");
 
 socket.on("artikelListe", (artikelListe) => {
-  console.log("neue Daten");
   artikelListe.forEach((artikel) => {
     istVorhanden(artikel["id"])
       ? aenderungenEinfuegen(artikel)
@@ -18,7 +17,14 @@ socket.on("artikelListe", (artikelListe) => {
   meldungAnzeigen();
 });
 
+socket.on("artikel", (artikel) => {
+  istVorhanden(artikel["id"])
+    ? aenderungenEinfuegen(artikel)
+    : artikelHinzufuegen(artikel);
+});
+
 socket.on("artikelLoeschen", (id) => {
+  console.log("SOCKET ARTIKEL LOESCHEN");
   console.log(id);
   if (istVorhanden(id)) {
     const listenelemente = document.querySelectorAll(".listenelement");
@@ -30,10 +36,6 @@ socket.on("artikelLoeschen", (id) => {
       }
     }
   }
-});
-
-socket.on("neuerArtikel", (artikel) => {
-  artikelHinzufuegen(artikel);
 });
 
 function istVorhanden(id) {
@@ -119,7 +121,8 @@ function formularAuswerten(e) {
   }
 
   const neuerArtikel = JSON.stringify(Object.fromEntries(data));
-  socket.emit("artikel", neuerArtikel);
+  // socket.emit("artikel", neuerArtikel);
+  socket.emit("artikel", Object.fromEntries(data));
 
   // FIREFOX!!!!!!!!!!!!!!!!!!!
   menueZuklappen(
@@ -160,6 +163,8 @@ function menueZuklappen(formular, pfeil) {
 function eintragEntfernen(e) {
   // CODE FUER FIREFOX!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   const id = e.target.parentNode.parentNode.querySelector("#id").value;
+  console.log("ID");
+  console.log(id);
   if (id != "") socket.emit("artikelLoeschen", id);
   // FIREFOX!!!!!!!!!
   e.path[2].remove();

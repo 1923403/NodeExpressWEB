@@ -5,28 +5,20 @@ const path = require("path");
 const fs = require("fs");
 
 io.on("connection", (socket) => {
-  socket.on("holeArtikelliste", () => sendeArtikelliste(socket));
-  // socket.emit("artikelListe", holeBestandsdaten());
-  console.log("NEUE VERBINDUNG");
-
-  socket.on("disconnect", (reason) => {
-    console.log("disconnected... because " + reason);
-  });
+  socket.on("holeArtikelliste", () =>
+    socket.emit("artikelListe", holeBestandsdaten())
+  );
 
   socket.on("artikel", (artikel) => {
-    verarbeiteNeueDaten(artikel, io);
+    verarbeiteNeueDaten(artikel);
   });
 
   socket.on("artikelLoeschen", (id) => {
+    console.log(id);
     loescheArtikel(id);
     io.emit("artikelLoeschen", id);
   });
 });
-
-function sendeArtikelliste(socket) {
-  console.log("HALLO");
-  socket.emit("artikelListe", holeBestandsdaten());
-}
 
 function holeBestandsdaten() {
   const rohdaten = fs.readFileSync(
@@ -37,18 +29,19 @@ function holeBestandsdaten() {
 }
 
 function verarbeiteNeueDaten(artikel) {
-  const neueArtikeldaten = JSON.parse(artikel);
   const bestand = holeBestandsdaten();
   let artikelId;
 
   bestand == "" ? (artikelId = 0) : (artikelId = holeLetzteId(bestand));
 
-  if (neueArtikeldaten["id"] === "") {
-    neueArtikeldaten["id"] = ++artikelId;
-    bestand.push(neueArtikeldaten);
+  if (artikel["id"] === "") {
+    artikel["id"] = ++artikelId;
+    bestand.push(artikel);
     aktualisiereBestandsliste(bestand);
+    io.emit("artikel", artikel);
   } else {
-    artikelAendern(neueArtikeldaten, bestand);
+    artikelAendern(artikel, bestand);
+    io.emit("artikel", artikel);
   }
 }
 
@@ -84,12 +77,12 @@ function artikelAendern(artikel, bestand) {
 
   for (let i = 0; i < bestand.length; i++) {
     if (bestand[i]["id"] == artikel["id"]) {
-      console.log(bestand[i]["id"] == artikel["id"]);
       suchbegriffe.forEach(
         (element) => (bestand[i][element] = artikel[element])
       );
     }
   }
+
   aktualisiereBestandsliste(bestand);
 }
 

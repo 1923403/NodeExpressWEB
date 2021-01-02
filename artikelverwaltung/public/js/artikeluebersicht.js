@@ -32,7 +32,8 @@ socket.on("artikelLoeschen", (id) => {
     for (let i = 0; i < listenelemente.length; i++) {
       if (listenelemente[i].querySelector("#id").value == id) {
         console.log("LOESCHEN");
-        listenelemente[i].remove();
+        const el = listenelemente[i];
+        animiereEntfernen(listenelemente[i]);
       }
     }
   }
@@ -165,9 +166,23 @@ function eintragEntfernen(e) {
   const id = e.target.parentNode.parentNode.querySelector("#id").value;
   console.log("ID");
   console.log(id);
-  if (id != "") socket.emit("artikelLoeschen", id);
+  //if (id != "") socket.emit("artikelLoeschen", id);
+  const el = e.path[2];
+  console.log(el);
+  animiereEntfernen(el);
+  setTimeout(()=> {
+    if (id != "") socket.emit("artikelLoeschen", id);
+  }, 300);
+  
+  function animiereEntfernen(el){
+    el.animate({transform: 'translateX(200%)'}, {duration: 300});
+    setTimeout(()=> {
+      el.remove();
+    }, 300);
+  }
+
   // FIREFOX!!!!!!!!!
-  e.path[2].remove();
+  //e.path[2].remove();
 }
 
 function neuerArtikel() {

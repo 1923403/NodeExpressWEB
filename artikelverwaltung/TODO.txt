@@ -8,3 +8,4 @@ Optional:
 
 Bugs (optional):
 - lange Bezeichner ragen in andere Elemente
+- schnelles loeschen nacheinander klappt nicht

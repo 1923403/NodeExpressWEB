@@ -34,5 +34,50 @@
     "verkaufspreis": "4.90",
     "kategorie": "Diuretika",
     "stueckzahl": "21323353"
+  },
+  {
+    "id": 5,
+    "name": "Lasix",
+    "hersteller": "",
+    "einkaufspreis": "",
+    "verkaufspreis": "",
+    "kategorie": "",
+    "stueckzahl": ""
+  },
+  {
+    "id": 6,
+    "name": "Fentanyl",
+    "hersteller": "",
+    "einkaufspreis": "",
+    "verkaufspreis": "",
+    "kategorie": "",
+    "stueckzahl": ""
+  },
+  {
+    "id": 7,
+    "name": "Talidomid",
+    "hersteller": "",
+    "einkaufspreis": "",
+    "verkaufspreis": "",
+    "kategorie": "",
+    "stueckzahl": ""
+  },
+  {
+    "id": 8,
+    "name": "Ketanest",
+    "hersteller": "",
+    "einkaufspreis": "",
+    "verkaufspreis": "",
+    "kategorie": "",
+    "stueckzahl": ""
+  },
+  {
+    "id": 9,
+    "name": "Aspirin",
+    "hersteller": "",
+    "einkaufspreis": "",
+    "verkaufspreis": "",
+    "kategorie": "",
+    "stueckzahl": ""
   }
 ]

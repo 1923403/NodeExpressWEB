@@ -173,16 +173,15 @@ function eintragEntfernen(e) {
   setTimeout(()=> {
     if (id != "") socket.emit("artikelLoeschen", id);
   }, 300);
-  
-  function animiereEntfernen(el){
-    el.animate({transform: 'translateX(200%)'}, {duration: 300});
-    setTimeout(()=> {
-      el.remove();
-    }, 300);
-  }
 
   // FIREFOX!!!!!!!!!
   //e.path[2].remove();
+}
+function animiereEntfernen(el){
+  el.animate({transform: 'translateX(200%)'}, {duration: 300});
+  setTimeout(()=> {
+    el.remove();
+  }, 300);
 }
 
 function neuerArtikel() {

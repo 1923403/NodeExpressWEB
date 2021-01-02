@@ -170,9 +170,9 @@ function eintragEntfernen(e) {
   const el = e.path[2];
   console.log(el);
   animiereEntfernen(el);
-  setTimeout(()=> {
+  // setTimeout(()=> {
     if (id != "") socket.emit("artikelLoeschen", id);
-  }, 300);
+  // }, 300);
 
   // FIREFOX!!!!!!!!!
   //e.path[2].remove();

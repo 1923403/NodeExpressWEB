@@ -3,14 +3,27 @@ var io = socket_io();
 var socketAPI = {};
 const path = require("path");
 const fs = require("fs");
+var connectedUsers = 0;
 
 //Verbindungen zu Clients
 io.on("connection", (socket) => {
+  console.log(socket.id + " connected");
+  console.log(++connectedUsers +" clients connected");
+
+  socket.on("disconnect", (reason)=>{
+    console.log(socket.id +" disconnected, because: " +reason);
+    console.log(--connectedUsers +" clients connected after disconnect");
+    socket.removeAllListeners();
+  });
 
   //Client fordert Artikelliste an, Server sendet sie diesem Client
   socket.on("holeArtikelliste", () =>
     socket.emit("artikelListe", holeBestandsdaten())
   );
+
+  socket.on("error",(errMsg)=>{
+    console.log("FEHLER!!!!"+errMsg);
+  });
 
   //Client sendet neuen / veraenderten Artikel
   socket.on("artikel", (artikel) => {
@@ -18,10 +31,10 @@ io.on("connection", (socket) => {
   });
 
   //Client hat Artikel geloescht, Mitteilung an alle Clients diesen Artikel (Id) zu loeschen
-  socket.on("artikelLoeschen", (id) => {
-    console.log(id);
+  socket.on("artikelLoeschenS", (id) => {
+    console.log("versuche zu loeschen: "+ id);
     loescheArtikel(id);
-    io.emit("artikelLoeschen", id);
+    console.log("geloescht: "+id)
   });
 });
 
@@ -58,6 +71,7 @@ function loescheArtikel(id) {
 
   for (let i = 0; i < bestand.length; i++) {
     if (bestand[i]["id"] == id) {
+      io.emit("artikelLoeschenC", id);
       bestand.splice(i, 1);
       break;
     }

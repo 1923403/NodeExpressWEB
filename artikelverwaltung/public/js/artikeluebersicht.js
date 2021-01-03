@@ -1,20 +1,84 @@
 const liste = document.querySelector("#elemente");
 //io = require("socket.io-client");
-var socket = io();
+//var socket = io();
+var socket = io({transports: ['websocket'], upgrade: false});
 
 // EventListener, um Eintrag hinzuzufuegen
 document.querySelector(".hinzufuegen").addEventListener("click", neuerArtikel);
 
-socket.emit("holeArtikelliste");
+socket.on("connect",()=>{
+  console.log("connected");
+  socket.emit("holeArtikelliste");
+});
+
+socket.on("error",(errMsg)=>{
+  console.log("FEHLER!!!!"+errMsg);
+});
 
 socket.on("artikelListe", (artikelListe) => {
   artikelListe.forEach((artikel) => {
     istVorhanden(artikel["id"])
-      ? aenderungenEinfuegen(artikel)
-      : artikelHinzufuegen(artikel);
+    ? aenderungenEinfuegen(artikel)
+    : artikelHinzufuegen(artikel);
   });
-
+  
+  //aktualisiereClientDaten(artikelListe)
   meldungAnzeigen();
+});
+
+function aktualisiereClientDaten(artikelListe){
+  console.log("HALLO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+  console.log(artikelListe)
+  // const clientIds = holeClientIds();
+  const clientIds = document.querySelectorAll(".listenlement");
+
+  clientIds.forEach(clientId => {
+    let vorhanden = false
+
+  artikelListe.forEach(artikel => {
+
+    if (!vorhanden) {
+      console.log(clientId.querySelector("#id").value)
+      if(clientId.querySelector("#id").value == artikel["id"]) {
+        console.log()
+        vorhanden = true
+      }
+    }
+    console.log(artikel)
+  })
+
+  if (!vorhanden) {
+    animiereEntfernen(clientId)
+    console.log("loeschen")
+  }
+  
+})
+
+  // if(clientIds != null){
+  //   clientIds.forEach(clientId =>{
+  //     if(clientId.length != 0){
+  //       console.log(artikelListe["id"].value);
+  //       if(artikelListe[clientId] == null){
+  //         console.log("zu loeschen: "+clientId);
+  //       }
+  //     }
+  //   });
+  // }
+
+}
+
+// function holeClientIds() {
+//   const listenelemente = document.querySelectorAll(".listenelement");
+//   const ids = [];
+//   listenelemente.forEach(listenelement => {
+//     ids.push(listenelement.querySelector("#id").value);
+//     console.log(ids);
+//   })
+//   return ids;
+// }
+
+socket.on("disconnect", (reason)=>{
+  console.log("disconnected because: "+reason);
 });
 
 socket.on("artikel", (artikel) => {
@@ -23,7 +87,7 @@ socket.on("artikel", (artikel) => {
     : artikelHinzufuegen(artikel);
 });
 
-socket.on("artikelLoeschen", (id) => {
+socket.on("artikelLoeschenC", (id) => {
   console.log("SOCKET ARTIKEL LOESCHEN");
   console.log(id);
   if (istVorhanden(id)) {
@@ -171,17 +235,18 @@ function eintragEntfernen(e) {
   console.log(el);
   animiereEntfernen(el);
   // setTimeout(()=> {
-    if (id != "") socket.emit("artikelLoeschen", id);
+    if (id != "") socket.emit("artikelLoeschenS", id);
   // }, 300);
 
   // FIREFOX!!!!!!!!!
   //e.path[2].remove();
 }
+
 function animiereEntfernen(el){
-  el.animate({transform: 'translateX(200%)'}, {duration: 300});
+  el.animate({transform: 'translateX(200%)'}, {duration: 400});
   setTimeout(()=> {
     el.remove();
-  }, 300);
+  }, 400);
 }
 
 function neuerArtikel() {

@@ -1,14 +1,14 @@
 const liste = document.querySelector("#elemente");
 //io = require("socket.io-client");
-//var socket = io();
-var socket = io({transports: ['websocket'], upgrade: false});
+var socket = io();
+//var socket = io({transports: ['websocket'], upgrade: false});
 
 // EventListener, um Eintrag hinzuzufuegen
 document.querySelector(".hinzufuegen").addEventListener("click", neuerArtikel);
+socket.emit("holeArtikelliste");
 
 socket.on("connect",()=>{
-  console.log("connected");
-  socket.emit("holeArtikelliste");
+  console.log("verbunden");
 });
 
 socket.on("error",(errMsg)=>{
@@ -236,10 +236,27 @@ function eintragEntfernen(e) {
   animiereEntfernen(el);
   // setTimeout(()=> {
     if (id != "") socket.emit("artikelLoeschenS", id);
+  buttonDeaktivieren();
   // }, 300);
+
+  
 
   // FIREFOX!!!!!!!!!
   //e.path[2].remove();
+}
+
+//zur Verhinderung von mehrfachem ungewollten loeschen
+function buttonDeaktivieren(){
+  const listenelemente = document.querySelectorAll(".listenelement")
+  listenelemente.forEach(element=>{
+    let button = element.querySelector(".eintrag-entfernen");
+    button.classList.toggle("button-deaktivieren");
+    button.removeEventListener("click", eintragEntfernen, false);
+    setTimeout(()=>{
+      button.addEventListener("click", eintragEntfernen);
+      button.classList.toggle("button-deaktivieren");
+    }, 2500);
+  });
 }
 
 function animiereEntfernen(el){

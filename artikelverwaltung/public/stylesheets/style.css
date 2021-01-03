@@ -13,6 +13,7 @@
   hyphens: auto;
   max-width: 100%;
   font-weight: bold;
+  user-select: none;
 }
 
 header {
@@ -161,6 +162,11 @@ ul:hover {
   outline: none;
   border: none;
   border-radius: 10px;
+}
+
+.button-deaktivieren {
+  background-color: #b1b1b1;
+  cursor: crosshair;
 }
 
 .formular {

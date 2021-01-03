@@ -4,15 +4,20 @@ var socketAPI = {};
 const path = require("path");
 const fs = require("fs");
 
+//Verbindungen zu Clients
 io.on("connection", (socket) => {
+
+  //Client fordert Artikelliste an, Server sendet sie diesem Client
   socket.on("holeArtikelliste", () =>
     socket.emit("artikelListe", holeBestandsdaten())
   );
 
+  //Client sendet neuen / veraenderten Artikel
   socket.on("artikel", (artikel) => {
     verarbeiteNeueDaten(artikel);
   });
 
+  //Client hat Artikel geloescht, Mitteilung an alle Clients diesen Artikel (Id) zu loeschen
   socket.on("artikelLoeschen", (id) => {
     console.log(id);
     loescheArtikel(id);
@@ -20,6 +25,7 @@ io.on("connection", (socket) => {
   });
 });
 
+//JSON Daten werden von Festplatte eingelesen
 function holeBestandsdaten() {
   const rohdaten = fs.readFileSync(
     path.join(__dirname, "..", "data", "listen.json")
@@ -28,6 +34,8 @@ function holeBestandsdaten() {
   return JSON.parse(rohdaten);
 }
 
+//Verarbeitung des Artikels (einfuegen falls neu, ueberschreiben falls schon verfuegbar)
+//neuen Artikel an alle verbundene Clients schicken
 function verarbeiteNeueDaten(artikel) {
   const bestand = holeBestandsdaten();
   let artikelId;
@@ -38,13 +46,13 @@ function verarbeiteNeueDaten(artikel) {
     artikel["id"] = ++artikelId;
     bestand.push(artikel);
     aktualisiereBestandsliste(bestand);
-    io.emit("artikel", artikel);
   } else {
     artikelAendern(artikel, bestand);
-    io.emit("artikel", artikel);
   }
+  io.emit("artikel", artikel);
 }
 
+//Artikel mit passender Id loeschenschen
 function loescheArtikel(id) {
   const bestand = holeBestandsdaten();
 
@@ -60,10 +68,12 @@ function loescheArtikel(id) {
   // io.emit("artikelLoeschen", id);
 }
 
+//gibt zuletzt verwendete Id zurueck
 function holeLetzteId(bestand) {
   return bestand[bestand.length - 1]["id"];
 }
 
+//ueberschreibt im Bestand gewuenschten Artikel mit neuem Artikel (gleiche Id)
 function artikelAendern(artikel, bestand) {
   const suchbegriffe = [
     "id",
@@ -86,6 +96,7 @@ function artikelAendern(artikel, bestand) {
   aktualisiereBestandsliste(bestand);
 }
 
+//schreibt neue Bestandsliste auf die Festplatte
 function aktualisiereBestandsliste(bestandsliste) {
   const daten = JSON.stringify(bestandsliste);
   fs.writeFileSync(path.join(__dirname, "..", "data", "listen.json"), daten);

@@ -189,6 +189,7 @@ ul:hover {
 
 .formular-gruppe input {
   appearance: textfield;
+  user-select: text;
 }
 
 .formular-gruppe input::-webkit-outer-spin-button,

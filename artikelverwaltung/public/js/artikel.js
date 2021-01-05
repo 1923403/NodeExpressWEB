@@ -10,7 +10,7 @@ class Artikel {
     // erstellt Listenelement, das spaeter uebergeben wird
     const listenelement = this.erstelleElement("div", "listenelement");
 
-    // erstellt unordered list, die dem Listenelement angehaengt wird
+    // erstellt Container, die dem Listenelement angehaengt wird
     const elementuebersicht = this.erstelleElement("div", "elementuebersicht");
     listenelement.appendChild(elementuebersicht);
 
@@ -22,14 +22,14 @@ class Artikel {
     const menuePfeil = this.erstelleElement("img", "pfeil");
     pfeilContainer.appendChild(menuePfeil);
 
-    // erstellt den in der Liste angezeigten Namen des Artikels und haengt ihn der unordered list an
+    // erstellt den in der Liste angezeigten Namen des Artikels und haengt ihn dem Container an
     const eintragsname = this.erstelleElement("p", "eintragsname");
     this.artikel != null
       ? (eintragsname.innerText = this.artikel["name"])
       : (eintragsname.innerText = "Neues Medikament");
     elementuebersicht.appendChild(eintragsname);
 
-    // erstellt Knopf, um Artikel zu entfernen, und haengt ihn der unordered list an
+    // erstellt Knopf, um Artikel zu entfernen, und haengt ihn dem Container an
     const eintragEntfernen = this.erstelleElement("p", "eintrag-entfernen");
     eintragEntfernen.innerText = "Löschen";
     elementuebersicht.appendChild(eintragEntfernen);

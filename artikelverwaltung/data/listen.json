@@ -1,1 +1,83 @@
-[{"id":3,"name":"Propofol","hersteller":"unknown","einkaufspreis":"2.27","verkaufspreis":"4.64","kategorie":"Hypnotikum","stueckzahl":"12"},{"id":4,"name":"Furosemid","hersteller":"unknown","einkaufspreis":"2.32","verkaufspreis":"4.90","kategorie":"Diuretika","stueckzahl":"21323353"},{"id":5,"name":"Lasix","hersteller":"","einkaufspreis":"","verkaufspreis":"","kategorie":"","stueckzahl":""},{"id":6,"name":"Fentanyl","hersteller":"","einkaufspreis":"","verkaufspreis":"","kategorie":"","stueckzahl":""},{"id":7,"name":"Talidomid","hersteller":"","einkaufspreis":"","verkaufspreis":"","kategorie":"","stueckzahl":""},{"id":8,"name":"Ketanest","hersteller":"","einkaufspreis":"","verkaufspreis":"","kategorie":"","stueckzahl":""},{"id":9,"name":"Aspirin","hersteller":"","einkaufspreis":"","verkaufspreis":"","kategorie":"","stueckzahl":""}]
+[
+  {
+    "id": 1,
+    "name": "Metamizol",
+    "hersteller": "ratiopharm",
+    "einkaufspreis": "2.49",
+    "verkaufspreis": "25.41",
+    "kategorie": "Analgetika",
+    "stueckzahl": "101"
+  },
+  {
+    "id": 2,
+    "name": "Succinylcholin",
+    "hersteller": "ratiopharm",
+    "einkaufspreis": "1.50",
+    "verkaufspreis": "28.00",
+    "kategorie": "Relaxans",
+    "stueckzahl": "10"
+  },
+  {
+    "id": 3,
+    "name": "Propofol",
+    "hersteller": "unknown",
+    "einkaufspreis": "2.27",
+    "verkaufspreis": "4.64",
+    "kategorie": "Hypnotikum",
+    "stueckzahl": "12"
+  },
+  {
+    "id": 4,
+    "name": "Furosemid",
+    "hersteller": "unknown",
+    "einkaufspreis": "2.32",
+    "verkaufspreis": "4.90",
+    "kategorie": "Diuretika",
+    "stueckzahl": "21323353"
+  },
+  {
+    "id": 5,
+    "name": "Lasix",
+    "hersteller": "",
+    "einkaufspreis": "",
+    "verkaufspreis": "",
+    "kategorie": "",
+    "stueckzahl": ""
+  },
+  {
+    "id": 6,
+    "name": "Fentanyl",
+    "hersteller": "",
+    "einkaufspreis": "",
+    "verkaufspreis": "",
+    "kategorie": "",
+    "stueckzahl": ""
+  },
+  {
+    "id": 7,
+    "name": "Talidomid",
+    "hersteller": "",
+    "einkaufspreis": "",
+    "verkaufspreis": "",
+    "kategorie": "",
+    "stueckzahl": ""
+  },
+  {
+    "id": 8,
+    "name": "Ketanest",
+    "hersteller": "",
+    "einkaufspreis": "",
+    "verkaufspreis": "",
+    "kategorie": "",
+    "stueckzahl": ""
+  },
+  {
+    "id": 9,
+    "name": "Aspirin",
+    "hersteller": "",
+    "einkaufspreis": "",
+    "verkaufspreis": "",
+    "kategorie": "",
+    "stueckzahl": ""
+  }
+]

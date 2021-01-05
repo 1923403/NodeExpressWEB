@@ -154,7 +154,9 @@ function meldungAnzeigen() {
 function formularAuswerten(e) {
   const data = new FormData();
   // FIREFOX!!!!!!!!!!!!!!!
-  const formularElement = e.path[2];
+  const listenelement = e.target.parentNode.parentNode.parentNode;
+  const formularElement = e.target.parentNode.parentNode;
+  console.log(formularElement)
   const suchbegriffe = [
     "id",
     "name",
@@ -175,14 +177,15 @@ function formularAuswerten(e) {
         );
 
     // FIREFOX!!!!!!!!!!!!!
-    if (element === "name")
-      e.path[3].querySelector(
+    if (element === "name"){
+      listenelement.querySelector(
         ".eintragsname"
       ).innerText = formularElement.querySelector(`#${element}`).value;
+    }
   });
 
   if (data.get("id") === "") {
-    formularElement.parentNode.remove();
+    listenelement.remove();
   }
 
   const neuerArtikel = JSON.stringify(Object.fromEntries(data));
@@ -191,19 +194,23 @@ function formularAuswerten(e) {
 
   // FIREFOX!!!!!!!!!!!!!!!!!!!
   menueZuklappen(
-    e.path[3].querySelector(".formular"),
-    e.path[3].querySelector(".pfeil")
+    listenelement.querySelector(".formular"),
+    listenelement.querySelector(".pfeil")
   );
-  e.path[3].querySelector(".elementuebersicht").classList.toggle("aktiv");
+  listenelement.querySelector(".elementuebersicht").classList.toggle("aktiv");
 }
 
 function detailsAnzeigen(e) {
   // FIREFOX!!!!!!!!!!!!
-  let path;
-
-  e.path[2].querySelector(".formular") == null
-    ? (path = e.path[3])
-    : (path = e.path[2]);
+  let path = e.target.parentNode.parentNode;
+  console.log(e.target);
+  if(path.querySelector(".elementuebersicht") == null){
+    path = path.parentNode;
+    console.log(path);
+  }
+  // e.path[2].querySelector(".formular") == null
+  //   ? (path = path.parentNode)
+  //   : (path = path.parentNode);
 
   let formular = path.querySelector(".formular");
   let pfeil = path.querySelector(".pfeil");
@@ -231,7 +238,7 @@ function eintragEntfernen(e) {
   console.log("ID");
   console.log(id);
   //if (id != "") socket.emit("artikelLoeschen", id);
-  const el = e.path[2];
+  const el = e.target;//e.path[2];
   console.log(el);
   animiereEntfernen(el);
   // setTimeout(()=> {

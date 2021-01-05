@@ -11,7 +11,7 @@ class Artikel {
     const listenelement = this.erstelleElement("div", "listenelement");
 
     // erstellt unordered list, die dem Listenelement angehaengt wird
-    const elementuebersicht = this.erstelleElement("ul", "elementuebersicht");
+    const elementuebersicht = this.erstelleElement("div", "elementuebersicht");
     listenelement.appendChild(elementuebersicht);
 
     // erstellt Container fuer Menuepfeil, der der unordered list angehaengt wird
@@ -23,14 +23,14 @@ class Artikel {
     pfeilContainer.appendChild(menuePfeil);
 
     // erstellt den in der Liste angezeigten Namen des Artikels und haengt ihn der unordered list an
-    const eintragsname = this.erstelleElement("li", "eintragsname");
+    const eintragsname = this.erstelleElement("p", "eintragsname");
     this.artikel != null
       ? (eintragsname.innerText = this.artikel["name"])
       : (eintragsname.innerText = "Neues Medikament");
     elementuebersicht.appendChild(eintragsname);
 
     // erstellt Knopf, um Artikel zu entfernen, und haengt ihn der unordered list an
-    const eintragEntfernen = this.erstelleElement("li", "eintrag-entfernen");
+    const eintragEntfernen = this.erstelleElement("p", "eintrag-entfernen");
     eintragEntfernen.innerText = "Löschen";
     elementuebersicht.appendChild(eintragEntfernen);
 

@@ -5,7 +5,16 @@ var socket = io();
 document.querySelector(".hinzufuegen").addEventListener("click", neuerArtikel);
 
 // fordert bei erstmaliger Ausfuehrung Bestandsdaten an
-socket.emit("holeArtikelliste");
+socket.on("connect",()=>{
+  console.log("new connection: "+socket.id);
+  socket.emit("holeArtikelliste");
+});
+
+socket.on("disconnect", (reason)=>{
+  console.log("disconnected because "+reason);
+})
+
+
 
 // verarbeitet vom Server uebermittelte Bestandsdaten
 socket.on("artikelliste", (artikelliste) => {

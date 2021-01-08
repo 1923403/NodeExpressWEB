@@ -196,7 +196,7 @@ main {
 /* per JS aktiviert, um zu signalisieren dass Button kurzzeitig nicht verwendbar ist */
 .button-deaktivieren {
   background-color: #b1b1b1;
-  cursor: crosshair;
+  cursor: default;
 }
 
 /* Formular, per JS wird Hoehe veraendert */

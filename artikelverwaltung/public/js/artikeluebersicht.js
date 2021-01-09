@@ -5,16 +5,13 @@ var socket = io();
 document.querySelector(".hinzufuegen").addEventListener("click", neuerArtikel);
 
 // fordert bei erstmaliger Ausfuehrung Bestandsdaten an
-socket.on("connect",()=>{
-  console.log("new connection: "+socket.id);
+socket.on("connect", () => {
   socket.emit("holeArtikelliste");
 });
 
-socket.on("disconnect", (reason)=>{
-  console.log("disconnected because "+reason);
-})
-
-
+socket.on("disconnect", (reason) => {
+  console.log("disconnected because " + reason);
+});
 
 // verarbeitet vom Server uebermittelte Bestandsdaten
 socket.on("artikelliste", (artikelliste) => {
@@ -49,9 +46,6 @@ socket.on("artikelLoeschen", (id) => {
       }
     }
   }
-
-  buttonDeaktivieren();
-
   meldungAnzeigen("Entferne Artikel");
 });
 
@@ -202,39 +196,20 @@ function menueZuklappen(formular, pfeil) {
 // loescht Artikel aus Liste
 function eintragEntfernen(e) {
   const id = e.target.parentNode.parentNode.querySelector("#id").value;
-  const el = e.target.parentNode.parentNode;
+  const element = e.target.parentNode.parentNode;
 
-  animiereEntfernen(el);
+  animiereEntfernen(element);
 
   // sendet ID des zu loeschenden Artikels an den Server
   if (id != "") socket.emit("artikelLoeschen", JSON.stringify(id));
 }
 
-// dektiviert Loeschen-Buttons kurzzeitig, um mehrfaches ungewolltes Loeschen zu
-// verhindern
-function buttonDeaktivieren() {
-  const listenelemente = document.querySelectorAll(".listenelement");
-
-  listenelemente.forEach((element) => {
-    // entfernt Funktionalitaet
-    let button = element.querySelector(".eintrag-entfernen");
-    button.classList.toggle("button-deaktivieren");
-    button.removeEventListener("click", eintragEntfernen, false);
-
-    // fuegt Funktionalitaet wieder hinzu
-    setTimeout(() => {
-      button.addEventListener("click", eintragEntfernen);
-      button.classList.toggle("button-deaktivieren");
-    }, 2500);
-  });
-}
-
 // geloeschtes Element gleitet nach rechts aus dem Bild
-function animiereEntfernen(el) {
-  el.animate({ transform: "translateX(200%)" }, { duration: 400 });
+function animiereEntfernen(element) {
+  element.animate({ transform: "translateX(200%)" }, { duration: 400 });
 
   setTimeout(() => {
-    el.remove();
+    element.remove();
   }, 400);
 }
 

@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Metamizol",
-    "hersteller": "ratiopharm",
+    "hersteller": "Ratiopharm",
     "einkaufspreis": "2.49",
     "verkaufspreis": "25.41",
     "kategorie": "Analgetika",
@@ -11,7 +11,7 @@
   {
     "id": 2,
     "name": "Succinylcholin",
-    "hersteller": "ratiopharm",
+    "hersteller": "Ratiopharm",
     "einkaufspreis": "1.50",
     "verkaufspreis": "28.00",
     "kategorie": "Relaxans",
@@ -20,7 +20,7 @@
   {
     "id": 3,
     "name": "Propofol",
-    "hersteller": "unknown",
+    "hersteller": "Fresenius",
     "einkaufspreis": "2.27",
     "verkaufspreis": "4.64",
     "kategorie": "Hypnotikum",
@@ -29,7 +29,7 @@
   {
     "id": 4,
     "name": "Furosemid",
-    "hersteller": "unknown",
+    "hersteller": "Ratiopharm",
     "einkaufspreis": "2.32",
     "verkaufspreis": "4.90",
     "kategorie": "Diuretika",
@@ -37,47 +37,47 @@
   },
   {
     "id": 5,
-    "name": "Lasix",
-    "hersteller": "",
-    "einkaufspreis": "",
-    "verkaufspreis": "",
-    "kategorie": "",
-    "stueckzahl": ""
+    "name": "BNT 162b2",
+    "hersteller": "Biontech/Pfizer",
+    "einkaufspreis": "48.00",
+    "verkaufspreis": "60.00",
+    "kategorie": "Vakzin",
+    "stueckzahl": "50"
   },
   {
     "id": 6,
     "name": "Fentanyl",
-    "hersteller": "",
-    "einkaufspreis": "",
-    "verkaufspreis": "",
-    "kategorie": "",
-    "stueckzahl": ""
+    "hersteller": "Janssen",
+    "einkaufspreis": "8.89",
+    "verkaufspreis": "12.78",
+    "kategorie": "Analgetikum",
+    "stueckzahl": "67"
   },
   {
     "id": 7,
     "name": "Talidomid",
-    "hersteller": "",
-    "einkaufspreis": "",
-    "verkaufspreis": "",
-    "kategorie": "",
-    "stueckzahl": ""
+    "hersteller": "-",
+    "einkaufspreis": "-",
+    "verkaufspreis": "-",
+    "kategorie": "Hypnotikum",
+    "stueckzahl": "0"
   },
   {
     "id": 8,
     "name": "Ketanest",
-    "hersteller": "",
-    "einkaufspreis": "",
-    "verkaufspreis": "",
-    "kategorie": "",
-    "stueckzahl": ""
+    "hersteller": "Ratiopharm",
+    "einkaufspreis": "4.32",
+    "verkaufspreis": "7.67",
+    "kategorie": "Analgetikum",
+    "stueckzahl": "71"
   },
   {
     "id": 9,
-    "name": "Aspirin",
-    "hersteller": "",
-    "einkaufspreis": "",
-    "verkaufspreis": "",
-    "kategorie": "",
-    "stueckzahl": ""
+    "name": "ASS",
+    "hersteller": "Bayer",
+    "einkaufspreis": "0.53",
+    "verkaufspreis": "3.50",
+    "kategorie": "Thrombozytenfunktionshemmer",
+    "stueckzahl": "21"
   }
 ]

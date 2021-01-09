@@ -4,6 +4,7 @@ const socketAPI = {};
 const path = require("path");
 const fs = require("fs");
 
+console.log("Server startet...");
 
 // Verbindungen zu Clients
 io.on("connection", (socket) => {
@@ -25,11 +26,7 @@ io.on("connection", (socket) => {
 function holeBestandsdaten() {
   const rohdaten = fs.readFileSync(
     path.join(__dirname, "..", "data", "listen.json")
-    );
-    fs.close(0, (err)=>{
-      if(err)
-        console.log(err);
-    });
+  );
   return JSON.parse(rohdaten);
 }
 
@@ -97,9 +94,7 @@ function artikelAendern(artikel, bestand) {
 // schreibt neue Bestandsliste im JSON-Format auf die Festplatte
 function aktualisiereBestandsliste(bestandsliste) {
   const daten = JSON.stringify(bestandsliste);
-
-  //fs.writeFileSync(path.join(__dirname, "..", "data", "listen.json"), daten);
-  //schreiben macht Probleme, Datei nicht richtig geschlossen / geoffnet?
+  fs.writeFileSync(path.join(__dirname, "..", "data", "listen.json"), daten);
 }
 
 socketAPI.io = io;

@@ -14,7 +14,7 @@ class Artikel {
     const elementuebersicht = this.erstelleElement("div", "elementuebersicht");
     listenelement.appendChild(elementuebersicht);
 
-    // erstellt Container fuer Menuepfeil, der der unordered list angehaengt wird
+    // erstellt Container fuer Menuepfeil, der dem Listenelement angehaengt wird
     const pfeilContainer = this.erstelleElement("div", "pfeil-container");
     elementuebersicht.appendChild(pfeilContainer);
 
@@ -22,7 +22,7 @@ class Artikel {
     const menuePfeil = this.erstelleElement("img", "pfeil");
     pfeilContainer.appendChild(menuePfeil);
 
-    // erstellt den in der Liste angezeigten Namen des Artikels und haengt ihn dem Container an
+    // erstellt den im Listenelement angezeigten Namen des Artikels und haengt ihn dem Container an
     const eintragsname = this.erstelleElement("p", "eintragsname");
     this.artikel != null
       ? (eintragsname.innerText = this.artikel["name"])
@@ -66,6 +66,7 @@ class Artikel {
     return formularContainer;
   }
 
+  //erstllt Container für die einzelnen Elemente des Formulars und Speichern-Button
   erstelleFormularGruppen() {
     const formular = document.createElement("form");
     const formulargruppen = [
@@ -98,6 +99,7 @@ class Artikel {
     return formular;
   }
 
+  //erstellt die Eingabefelder
   erstelleInput(gruppenelement) {
     const input = document.createElement("input");
 
@@ -117,6 +119,7 @@ class Artikel {
     return input;
   }
 
+  //erstellt die Bezeichner für die Eingabefelder
   erstelleLabel(gruppenelement) {
     const label = document.createElement("label");
     label.htmlFor = gruppenelement;
@@ -131,6 +134,7 @@ class Artikel {
     return label;
   }
 
+  //erstellt den Speichern-Button
   erstelleButton() {
     const button = this.erstelleElement("button", "speichern-button");
     button.type = "button";

@@ -9,6 +9,7 @@ socket.on("connect", () => {
   socket.emit("holeArtikelliste");
 });
 
+//loggt client-seitig den Grund für den Verbindungsabbruch der Socket-Verbindung
 socket.on("disconnect", (reason) => {
   console.log("disconnected because " + reason);
 });

@@ -1,6 +1,0 @@
-Optional:
-- Info über fehlende Speicherung
-
-Bugs (optional):
-- lange Bezeichner ragen in andere Elemente
-- Verbindungsabbruch beheben

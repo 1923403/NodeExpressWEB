@@ -15,11 +15,11 @@ io.on("connection", (socket) => {
 
   // Client sendet neuen / veraenderten Artikel
   socket.on("artikel", (artikel) => {
-    verarbeiteNeueDaten(JSON.parse(artikel));
+    verarbeiteNeueDaten(JSON.parse(artikel), socket);
   });
 
   // Client hat Artikel geloescht, Mitteilung an alle Clients diesen Artikel (Id) zu loeschen
-  socket.on("artikelLoeschen", (id) => loescheArtikel(JSON.parse(id)));
+  socket.on("artikelLoeschen", (id) => loescheArtikel(JSON.parse(id), socket));
 });
 
 // JSON-Daten werden von Festplatte eingelesen
@@ -32,7 +32,7 @@ function holeBestandsdaten() {
 
 // Verarbeitung des Artikels (einfuegen falls neu, ueberschreiben falls schon verfuegbar)
 // neuen Artikel an alle verbundenen Clients schicken
-function verarbeiteNeueDaten(artikel) {
+function verarbeiteNeueDaten(artikel, socket) {
   const bestand = holeBestandsdaten();
   let artikelId;
 
@@ -42,19 +42,20 @@ function verarbeiteNeueDaten(artikel) {
     artikel["id"] = ++artikelId;
     bestand.push(artikel);
     aktualisiereBestandsliste(bestand);
+    io.emit("artikel", JSON.stringify(artikel));
   } else {
     artikelAendern(artikel, bestand);
+    socket.broadcast.emit("artikel", JSON.stringify(artikel));
   }
-  io.emit("artikel", JSON.stringify(artikel));
 }
 
 // Artikel mit passender Id loeschen
-function loescheArtikel(id) {
+function loescheArtikel(id, socket) {
   const bestand = holeBestandsdaten();
 
   for (let i = 0; i < bestand.length; i++) {
     if (bestand[i]["id"] == id) {
-      io.emit("artikelLoeschen", JSON.stringify(id));
+      socket.broadcast.emit("artikelLoeschen", JSON.stringify(id));
       bestand.splice(i, 1);
       break;
     }

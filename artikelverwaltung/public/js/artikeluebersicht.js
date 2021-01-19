@@ -142,8 +142,7 @@ function formularAuswerten(e) {
       e.target.parentNode.parentNode.parentNode.querySelector(
         ".eintragsname"
       ).innerText = formularElement.querySelector(`#${element}`).value;
-    }
-  );
+  });
 
   // falls keine ID vorhanden ist, wird der Eintrag entfernt, da die ID server-
   // seitig vergeben wird und das Objekt nicht mehr identifizierbar waere

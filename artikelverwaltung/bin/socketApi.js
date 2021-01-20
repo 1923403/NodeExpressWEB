@@ -55,7 +55,7 @@ function loescheArtikel(id, socket) {
 
   for (let i = 0; i < bestand.length; i++) {
     if (bestand[i]["id"] == id) {
-      socket.broadcast.emit("artikelLoeschen", JSON.stringify(id));
+      socket.broadcast.emit("artikelLoeschen", id);
       bestand.splice(i, 1);
       break;
     }

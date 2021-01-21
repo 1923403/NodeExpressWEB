@@ -71,23 +71,6 @@ main {
   border-radius: 10px;
 }
 
-/* Artikel wird als Liste dargestellt */
-/* .listenelement ul {
-  width: 100%;
-  margin-top: 20px;
-}
-
-.listenelement ul li {
-  list-style: none;
-  text-align: center;
-  cursor: pointer;
-  margin: 0px;
-}
-
-.listenelement ul li a {
-  text-decoration: none;
-} */
-
 /* enthaelt elementuebersicht und formular */
 .listenelement {
   margin-top: 20px;
@@ -130,6 +113,7 @@ main {
   grid-area: right;
   background-color: darkred;
   text-align: center;
+  border: none;
   outline: none;
   color: white;
   border-radius: 10px;

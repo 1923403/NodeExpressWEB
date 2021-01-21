@@ -30,7 +30,7 @@ class Artikel {
     elementuebersicht.appendChild(eintragsname);
 
     // erstellt Knopf, um Artikel zu entfernen, und haengt ihn dem Container an
-    const eintragEntfernen = this.erstelleElement("p", "eintrag-entfernen");
+    const eintragEntfernen = this.erstelleElement("button", "eintrag-entfernen");
     eintragEntfernen.innerText = "Löschen";
     elementuebersicht.appendChild(eintragEntfernen);
 

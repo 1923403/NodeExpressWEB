@@ -16,9 +16,7 @@ socket.on("disconnect", (reason) => {
 
 // verarbeitet vom Server uebermittelte Bestandsdaten
 socket.on("artikelliste", (artikelliste) => {
-  const geparsteArtikelListe = JSON.parse(artikelliste);
-
-  geparsteArtikelListe.forEach((artikel) => {
+  artikelliste.forEach((artikel) => {
     verarbeiteArtikel(artikel);
   });
 
@@ -27,22 +25,18 @@ socket.on("artikelliste", (artikelliste) => {
 
 // verarbeitet auf dem Server aktualisierte Daten
 socket.on("artikel", (artikel) => {
-  const geparsterArtikel = JSON.parse(artikel);
-
-  verarbeiteArtikel(geparsterArtikel);
+  verarbeiteArtikel(artikel);
 
   meldungAnzeigen("Aktualisiere Bestandsdaten");
 });
 
 // verarbeitet auf dem Server geloeschte Artikel
 socket.on("artikelLoeschen", (id) => {
-  const geparsteId = JSON.parse(id);
-
-  if (istVorhanden(geparsteId)) {
+  if (istVorhanden(id)) {
     const listenelemente = document.querySelectorAll(".listenelement");
 
     for (let i = 0; i < listenelemente.length; i++) {
-      if (listenelemente[i].querySelector("#id").value == geparsteId) {
+      if (listenelemente[i].querySelector("#id").value == id) {
         animiereEntfernen(listenelemente[i]);
       }
     }
@@ -143,15 +137,15 @@ function formularAuswerten(e) {
         ".eintragsname"
       ).innerText = formularElement.querySelector(`#${element}`).value;
   });
-  
+
   menueZuklappen(
     e.target.parentNode.parentNode.parentNode.querySelector(".formular"),
     e.target.parentNode.parentNode.parentNode.querySelector(".pfeil")
-    );
-    
+  );
+
   e.target.parentNode.parentNode.parentNode
-      .querySelector(".elementuebersicht")
-      .classList.toggle("aktiv");
+    .querySelector(".elementuebersicht")
+    .classList.toggle("aktiv");
 
   // falls keine ID vorhanden ist, wird der Eintrag entfernt, da die ID server-
   // seitig vergeben wird und das Objekt nicht mehr identifizierbar waere
@@ -160,10 +154,8 @@ function formularAuswerten(e) {
   }
 
   // uebermittelt die aktualisierten Daten an den Server
-  const neuerArtikel = JSON.stringify(Object.fromEntries(data));
+  const neuerArtikel = Object.fromEntries(data);
   socket.emit("artikel", neuerArtikel);
-
-
 }
 
 // klappt entsprechend des aktuellen Status Artikelmenue auf oder zu
@@ -204,7 +196,7 @@ function eintragEntfernen(e) {
   animiereEntfernen(element);
 
   // sendet ID des zu loeschenden Artikels an den Server
-  if (id != "") socket.emit("artikelLoeschen", JSON.stringify(id));
+  if (id != "") socket.emit("artikelLoeschen", id);
 }
 
 // geloeschtes Element gleitet nach rechts aus dem Bild

@@ -10,16 +10,16 @@ console.log("Server startet...");
 io.on("connection", (socket) => {
   // Client fordert Artikelliste an, Server sendet sie diesem Client
   socket.on("holeArtikelliste", () =>
-    socket.emit("artikelliste", JSON.stringify(holeBestandsdaten()))
+    socket.emit("artikelliste", holeBestandsdaten())
   );
 
   // Client sendet neuen / veraenderten Artikel
   socket.on("artikel", (artikel) => {
-    verarbeiteNeueDaten(JSON.parse(artikel), socket);
+    verarbeiteNeueDaten(artikel, socket);
   });
 
   // Client hat Artikel geloescht, Mitteilung an alle Clients diesen Artikel (Id) zu loeschen
-  socket.on("artikelLoeschen", (id) => loescheArtikel(JSON.parse(id), socket));
+  socket.on("artikelLoeschen", (id) => loescheArtikel(id, socket));
 });
 
 // JSON-Daten werden von Festplatte eingelesen
@@ -42,10 +42,10 @@ function verarbeiteNeueDaten(artikel, socket) {
     artikel["id"] = ++artikelId;
     bestand.push(artikel);
     aktualisiereBestandsliste(bestand);
-    io.emit("artikel", JSON.stringify(artikel));
+    io.emit("artikel", artikel);
   } else {
     artikelAendern(artikel, bestand);
-    socket.broadcast.emit("artikel", JSON.stringify(artikel));
+    socket.broadcast.emit("artikel", artikel);
   }
 }
 

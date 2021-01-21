@@ -143,6 +143,15 @@ function formularAuswerten(e) {
         ".eintragsname"
       ).innerText = formularElement.querySelector(`#${element}`).value;
   });
+  
+  menueZuklappen(
+    e.target.parentNode.parentNode.parentNode.querySelector(".formular"),
+    e.target.parentNode.parentNode.parentNode.querySelector(".pfeil")
+    );
+    
+  e.target.parentNode.parentNode.parentNode
+      .querySelector(".elementuebersicht")
+      .classList.toggle("aktiv");
 
   // falls keine ID vorhanden ist, wird der Eintrag entfernt, da die ID server-
   // seitig vergeben wird und das Objekt nicht mehr identifizierbar waere
@@ -154,14 +163,7 @@ function formularAuswerten(e) {
   const neuerArtikel = JSON.stringify(Object.fromEntries(data));
   socket.emit("artikel", neuerArtikel);
 
-  menueZuklappen(
-    e.target.parentNode.parentNode.parentNode.querySelector(".formular"),
-    e.target.parentNode.parentNode.parentNode.querySelector(".pfeil")
-  );
 
-  e.target.parentNode.parentNode.parentNode
-    .querySelector(".elementuebersicht")
-    .classList.toggle("aktiv");
 }
 
 // klappt entsprechend des aktuellen Status Artikelmenue auf oder zu

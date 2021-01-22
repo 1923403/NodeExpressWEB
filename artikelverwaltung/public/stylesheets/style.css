@@ -1,9 +1,9 @@
 /* Variblen zur spaeteren Verwendung */
 :root {
-  --main-color: #22376f;
-  --secondary-color: #53619e;
-  --active-color: #e1e1e1;
-  --shadow: rgba(0, 0, 0, 0.2);
+  --haupt-farbe: #22376f;
+  --zweit-farbe: #53619e;
+  --aktive-farbe: #e1e1e1;
+  --schatten: rgba(0, 0, 0, 0.2);
 }
 
 /* allgemeine Definitionen die sich auf gesamte Seite beziehen */
@@ -21,7 +21,7 @@
 /* Ueberschriftsbalken */
 header {
   display: inline-block;
-  background-color: var(--main-color);
+  background-color: var(--haupt-farbe);
   color: white;
   width: 100vw;
   text-align: center;
@@ -138,7 +138,7 @@ main {
 /* wenn Artikel ausgeklappt oder bei hover wird Hintergrundfarbe dunkler */
 .aktiv,
 .elementuebersicht:hover {
-  background-color: var(--active-color);
+  background-color: var(--aktive-farbe);
   transition: 0.2s;
 }
 
@@ -153,7 +153,7 @@ main {
 .hinzufuegen:hover,
 .eintrag-entfernen:hover {
   transition: 0.2;
-  box-shadow: 0 8px 16px 0 var(--shadow);
+  box-shadow: 0 8px 16px 0 var(--schatten);
 }
 
 /* container der Hinzufuegen-Button enthaelt */
@@ -184,7 +184,7 @@ main {
   transition: max-height 0.2s ease-out;
   border-radius: 0px 0px 10px 10px;
   width: 100%;
-  background-color: var(--active-color);
+  background-color: var(--aktive-farbe);
 }
 
 .formular form {

@@ -30,7 +30,10 @@ class Artikel {
     elementuebersicht.appendChild(eintragsname);
 
     // erstellt Knopf, um Artikel zu entfernen, und haengt ihn dem Container an
-    const eintragEntfernen = this.erstelleElement("button", "eintrag-entfernen");
+    const eintragEntfernen = this.erstelleElement(
+      "button",
+      "eintrag-entfernen"
+    );
     eintragEntfernen.innerText = "Löschen";
     elementuebersicht.appendChild(eintragEntfernen);
 
@@ -49,7 +52,7 @@ class Artikel {
     neuesElement.className = klassenname;
 
     if (htmlElement === "img" && klassenname === "pfeil") {
-      neuesElement.src = "./images/arrow-right-24px.svg";
+      neuesElement.src = "./images/pfeil-rechts-24px.svg";
     }
 
     return neuesElement;

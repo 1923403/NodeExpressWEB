@@ -4,7 +4,7 @@ var socket = io();
 // EventListener, um Eintrag hinzuzufuegen
 document.querySelector(".hinzufuegen").addEventListener("click", neuerArtikel);
 
-// fordert bei erstmaliger Ausfuehrung Bestandsdaten an
+// fordert bei Verbindung mit Server Bestandsdaten an
 socket.on("connect", () => {
   socket.emit("holeArtikelliste");
 });
